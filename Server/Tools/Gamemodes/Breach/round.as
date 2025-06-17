@@ -139,8 +139,8 @@ namespace Round
 				Door d = world.GetDoor(i);
 				if(d != NULL) {
 					Entity ent = d.GetEntity();
-					if(DistanceSquared(door1, vector3(ent.PositionX(), ent.PositionY(), ent.PositionZ())) < 10.0 
-					|| DistanceSquared(door2, vector3(ent.PositionX(), ent.PositionY(), ent.PositionZ())) < 10.0) {
+					if(DistanceSquared(door1, vector3(ent.PositionX(true), ent.PositionY(true), ent.PositionZ(true))) < 10.0 
+					|| DistanceSquared(door2, vector3(ent.PositionX(true), ent.PositionY(true), ent.PositionZ(true))) < 10.0) {
 						d.SetOpen(true);
 						d.SetLockState(1);
 					}
@@ -196,7 +196,7 @@ namespace Round
 			LobbyGUI[0].Hide();
 			LobbyGUI[1].Hide();
 			
-			SetWaveTimer(int(MTF_TIMER / 1.4)); // The first wave is faster than the others
+			SetWaveTimer(MTF_TIMER);
 			
 			CategoryEscaped.clear();
 			CuffedCategoryEscaped.clear();
@@ -373,7 +373,7 @@ namespace Round
 				
 				if(!IsWarheadsEnabled()) { // Can't enable if warheads already controls by usual warheads
 					audio.PlaySound("SFX\\Ending\\GateB\\DetonatingAlphaWarheads.ogg");
-					CreateTimer("Round::SirenUpdate", 10000, false);
+					CreateTimer(SirenUpdate, 10000, false);
 				}
 				
 				Round::GetSettings().friendlyfire = true;
@@ -386,14 +386,14 @@ namespace Round
 	{
 		if(!IsStarted() || IsWarheadsEnabled()) return;
 		audio.PlaySound("SFX\\Ending\\GateB\\Siren.ogg");
-		CreateTimer("Round::SirenUpdate", 11000, false);
+		CreateTimer(SirenUpdate, 11000, false);
 	}
 
 	void WarheadsSirenUpdate()
 	{
 		if(!IsWarheadsEnabled()) return;
 		audio.PlaySound("SFX\\Ending\\GateB\\Siren.ogg");
-		CreateTimer("Round::WarheadsSirenUpdate", 11000, false);
+		CreateTimer(WarheadsSirenUpdate, 11000, false);
 	}
 
 	void UpdateTime()
@@ -494,23 +494,22 @@ namespace Round
 		CreateItemPoint(items, world.GetRoomByIdentifier(r_cont2_427_714_860_1025), vector3(-607, 77.3, 633.0), has914 ? "Level 1 Key Card" : "Level 3 Key Card");
 		CreateItemPoint(items, world.GetRoomByIdentifier(r_room2_closets), vector3(752.8, 121.1, 526.3), "Compact First Aid Kit");
 		CreateItemPoint(items, world.GetRoomByIdentifier(r_room2_closets), vector3(737.8, 228.4, 764.5), has914 ? "Level 1 Key Card" : "Level 3 Key Card");
-		CreateItemPoint(items, world.GetRoomByIdentifier(r_cont1_005), vector3(504.3, 181.7, -506.1), rand(0, 1) == 0 ? "MP5" : "KRISS Vector");
 		CreateItemPoint(items, world.GetRoomByIdentifier(r_cont1_914), vector3(541.3, 188.7, 130.1), "Compact First Aid Kit");
 		CreateItemPoint(items, world.GetRoomByIdentifier(r_cont2_500_1499), vector3(-653.0, 168.4, -766.7), has914 ? "Level 1 Key Card" : "Level 3 Key Card");
 		CreateItemPoint(items, world.GetRoomByIdentifier(r_cont1_205), vector3(206.0, 190.0, 180), has914 ? "Level 1 Key Card" : "Level 2 Key Card");
 		CreateItemPoint(items, world.GetRoomByIdentifier(r_cont1_205), vector3(-975.0, -15.0, 650), "Level 3 Key Card");
 		
 		CreateItemPoint(items, world.GetRoomByIdentifier(r_room1_storage), vector3(192.0, 96.0, 461), has914 ? "Compact First Aid Kit" : "Level 3 Key Card");
-		CreateItemPoint(items, world.GetRoomByIdentifier(r_room1_storage), vector3(192.0, 96.0, -224), rand(0, 2) == 0 ? "Glock" : "Compact First Aid Kit");
+		CreateItemPoint(items, world.GetRoomByIdentifier(r_room1_storage), vector3(192.0, 96.0, -224), rand(0, 10) == 0 ? "Glock" : "Compact First Aid Kit");
 		CreateItemPoint(items, world.GetRoomByIdentifier(r_room1_storage), vector3(192.0, 192.0, 110), "Compact First Aid Kit");
 		CreateItemPoint(items, world.GetRoomByIdentifier(r_room2_sl), vector3(841.0, 640.0, -25.0), "Glock");
 		
 		// HCZ
 		CreateItemPoint(items, world.GetRoomByIdentifier(r_room2_shaft), vector3(1930.0, 225.0, 128), "Glock");
-		if(rand(10) == 0) CreateItemPoint(items, world.GetRoomByIdentifier(r_room2_shaft), vector3(996.0, 160.0, -102), "Level 5 Key Card");
+		if(rand(10) == 0) CreateItemPoint(items, world.GetRoomByIdentifier(r_room2_shaft), vector3(996.0, 160.0, -102), "Level 4 Key Card");
 		CreateItemPoint(items, world.GetRoomByIdentifier(r_room2_2_ez), vector3(800.0, -48.0, 368), rand(0, 1) == 0 ? "MP5" : "KRISS Vector");
 		CreateItemPoint(items, world.GetRoomByIdentifier(r_cont2c_096), vector3(-1169.0, -563.0, 721), rand(0, 3) == 0 ? "Level 3 Key Card" : "Remington");
-		CreateItemPoint(items, world.GetRoomByIdentifier(r_cont2c_096), vector3(14.0, -390, 1437), rand(0, 2) == 0 ? "Level 5 Key Card" : (rand(0, 1) == 0 ? "MP5" : "KRISS Vector"));
+		CreateItemPoint(items, world.GetRoomByIdentifier(r_cont2c_096), vector3(14.0, -390, 1437), rand(0, 2) == 0 ? "Level 4 Key Card" : (rand(0, 1) == 0 ? "MP5" : "KRISS Vector"));
 		
 		world.RaycastItems();
 	}
@@ -540,7 +539,7 @@ namespace Round
 		
 		if(WarheadsEnabled) {
 			audio.PlaySound("SFX\\Ending\\GateB\\DetonatingAlphaWarheads.ogg");
-			CreateTimer("Round::WarheadsSirenUpdate", 10000, false);
+			CreateTimer(WarheadsSirenUpdate, 10000, false);
 		}
 		
 		return true;

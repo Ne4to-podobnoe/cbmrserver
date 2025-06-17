@@ -84,8 +84,8 @@ namespace Lobby
 		
 		if(r != NULL) {
 			Entity rooment = r.GetEntity();
-			player.SetPosition(rooment.PositionX(), rooment.PositionY() + 0.3, rooment.PositionZ(), r);
-			player.SetPositionBounds(r, rooment.PositionX(), rooment.PositionY() + 0.3, rooment.PositionZ(), 34.0);
+			player.SetPosition(rooment.PositionX(), rooment.PositionY() + 0.4, rooment.PositionZ(), r);
+			player.SetPositionBounds(r, rooment.PositionX(), rooment.PositionY() + 0.4, rooment.PositionZ(), 34.0);
 		}
 		else {
 			r = world.GetRoomByIdentifier(r_gate_a_b);

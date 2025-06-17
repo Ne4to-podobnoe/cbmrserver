@@ -289,7 +289,7 @@ namespace Roles
 			Spawnpoint(vector3(frand(0.0, -400.0), 78, frand(-90.0, 90.0)), 0.0, frand(-180.0, 180.0), room3_storage),
 			Spawnpoint(vector3(frand(0.0, -400.0), 78, frand(-90.0, 90.0)), 0.0, frand(-180.0, 180.0), room3_storage),
 			Spawnpoint(vector3(frand(0.0, -400.0), 78, frand(-90.0, 90.0)), 0.0, frand(-180.0, 180.0), room3_storage)
-		}, {"Level 2 Key Card"});
+		}, {"Level 1 Key Card"});
 
 		Role@ Guard = Role(ROLE_GUARD, "Guard", CATEGORY_SECURITY, PlayerModel(GUARD_MODEL), Color(20, 20, 200), "Find and save Scientists. Kill Class D as intended.",
 		{ 
@@ -329,7 +329,7 @@ namespace Roles
 			Spawnpoint(vector3(frand(9300.0, 10000.0), 50, frand(-5300.0, -4600.0)), 0.0, 0.0, gate_a_b),
 			Spawnpoint(vector3(frand(9300.0, 10000.0), 50, frand(-5300.0, -4600.0)), 0.0, 0.0, gate_a_b),
 			Spawnpoint(vector3(frand(9300.0, 10000.0), 50, frand(-5300.0, -4600.0)), 0.0, 0.0, gate_a_b)
-		}, {"P90", "Five-Seven", "Level 4 Key Card", "Radio Transceiver", "Compact First Aid Kit;Ballistic Helmet;Ballistic Vest;Handcuffs"});
+		}, {"P90", "Five-Seven", "Level 4 Key Card", "Radio Transceiver", "Compact First Aid Kit;Ballistic Helmet;Ballistic Vest;Handcuffs;Ammo crate"});
 		
 		Role@ MTFMed = Role(ROLE_MTF_MEDIC, "Mobile Task Force Medic", CATEGORY_SECURITY, PlayerModel(MTF_MODEL, {MTF_MEDIC_TEXTURE}), Color(20, 20, 200), "Find and save Scientists. Kill Class D as intended.",
 		{ 
@@ -353,7 +353,7 @@ namespace Roles
 			Spawnpoint(vector3(frand(9300.0, 10000.0), 50, frand(-5300.0, -4600.0)), 0.0, 0.0, gate_a_b),
 			Spawnpoint(vector3(frand(9300.0, 10000.0), 50, frand(-5300.0, -4600.0)), 0.0, 0.0, gate_a_b),
 			Spawnpoint(vector3(frand(9300.0, 10000.0), 50, frand(-5300.0, -4600.0)), 0.0, 0.0, gate_a_b)
-		}, {"MP7", "Five-Seven", "Level 4 Key Card", "Radio Transceiver", "Ballistic Helmet;Ballistic Vest;Compact First Aid Kit;Compact First Aid Kit;Compact First Aid Kit;Compact First Aid Kit;Compact First Aid Kit"});
+		}, {"MP7", "Five-Seven", "Level 4 Key Card", "Radio Transceiver", "Ballistic Helmet;Ballistic Vest;Compact First Aid Kit;Compact First Aid Kit;Compact First Aid Kit;Compact First Aid Kit;Compact First Aid Kit;Ammo crate"});
 		
 		Role@ MTFSer = Role(ROLE_MTF_SERGEANT, "Mobile Task Force Sergeant", CATEGORY_SECURITY, PlayerModel(MTF_MODEL, {MTF_SERGEANT_TEXTURE}), Color(20, 20, 200), "Find and save Scientists. Kill Class D as intended. Command your subordinates.",
 		{ 
@@ -377,7 +377,7 @@ namespace Roles
 			Spawnpoint(vector3(frand(9300.0, 10000.0), 50, frand(-5300.0, -4600.0)), 0.0, 0.0, gate_a_b),
 			Spawnpoint(vector3(frand(9300.0, 10000.0), 50, frand(-5300.0, -4600.0)), 0.0, 0.0, gate_a_b),
 			Spawnpoint(vector3(frand(9300.0, 10000.0), 50, frand(-5300.0, -4600.0)), 0.0, 0.0, gate_a_b)
-		}, {"M4A1", "Five-Seven", "Level 5 Key Card", "Radio Transceiver", "Compact First Aid Kit;Ballistic Helmet;Heavy Ballistic Vest;Handcuffs"});
+		}, {"M4A1", "Five-Seven", "Level 5 Key Card", "Radio Transceiver", "Compact First Aid Kit;Ballistic Helmet;Heavy Ballistic Vest;Handcuffs;Ammo crate"});
 		
 		Role@ MTFCom = Role(ROLE_MTF_COMMANDER, "Mobile Task Force Captain", CATEGORY_SECURITY, PlayerModel(MTF_MODEL, {MTF_COMMANDER_TEXTURE}), Color(20, 20, 200), "Find and save Scientists. Kill Class D as intended. Command your subordinates.",
 		{ 
@@ -401,7 +401,7 @@ namespace Roles
 			Spawnpoint(vector3(frand(9300.0, 10000.0), 50, frand(-5300.0, -4600.0)), 0.0, 0.0, gate_a_b),
 			Spawnpoint(vector3(frand(9300.0, 10000.0), 50, frand(-5300.0, -4600.0)), 0.0, 0.0, gate_a_b),
 			Spawnpoint(vector3(frand(9300.0, 10000.0), 50, frand(-5300.0, -4600.0)), 0.0, 0.0, gate_a_b)
-		}, {"M4A1", "Five-Seven", "Key Card Omni", "Radio Transceiver", "Compact First Aid Kit;Ballistic Helmet;Heavy Ballistic Vest;Handcuffs"});
+		}, {"M4A1", "Five-Seven", "Key Card Omni", "Radio Transceiver", "Compact First Aid Kit;Ballistic Helmet;Heavy Ballistic Vest;Handcuffs;Ammo crate"});
 		
 		Role@ Chaos = Role(ROLE_CHAOS, "Chaos Insurgency Recruit", CATEGORY_INMATE, PlayerModel(CHAOS_MODEL), Color(26, 64, 1), "Find and save Class D",
 		{ 
@@ -421,7 +421,7 @@ namespace Roles
 			Spawnpoint(vector3(frand(-4000.0, -4500.0), 78, frand(10400.0, 11200.0)), 0.0, 180.0, gate_a_b),
 			Spawnpoint(vector3(frand(-4000.0, -4500.0), 78, frand(10400.0, 11200.0)), 0.0, 180.0, gate_a_b),
 			Spawnpoint(vector3(frand(-4000.0, -4500.0), 78, frand(10400.0, 11200.0)), 0.0, 180.0, gate_a_b)
-		}, {"SR-556", "Glock", "Hacking Device", "Radio Transceiver", "Compact First Aid Kit;Ballistic Helmet;Ballistic Vest;Handcuffs"});
+		}, {"SR-556", "Glock", "Hacking Device", "Radio Transceiver", "Compact First Aid Kit;Ballistic Helmet;Ballistic Vest;Handcuffs;Ammo crate"});
 		
 		Role@ ChaosMed = Role(ROLE_CHAOS_MEDIC, "Chaos Insurgency Medic", CATEGORY_INMATE, PlayerModel(CHAOS_MODEL), Color(26, 64, 1), "Find and save Class D. Heal your teammates",
 		{ 
@@ -441,7 +441,7 @@ namespace Roles
 			Spawnpoint(vector3(frand(-4000.0, -4500.0), 78, frand(10400.0, 11200.0)), 0.0, 180.0, gate_a_b),
 			Spawnpoint(vector3(frand(-4000.0, -4500.0), 78, frand(10400.0, 11200.0)), 0.0, 180.0, gate_a_b),
 			Spawnpoint(vector3(frand(-4000.0, -4500.0), 78, frand(10400.0, 11200.0)), 0.0, 180.0, gate_a_b)
-		}, {"MP5", "Glock", "Hacking Device", "Radio Transceiver", "Ballistic Helmet;Heavy Ballistic Vest;Compact First Aid Kit;Compact First Aid Kit;Compact First Aid Kit;Compact First Aid Kit"});
+		}, {"MP5", "Glock", "Hacking Device", "Radio Transceiver", "Ballistic Helmet;Heavy Ballistic Vest;Compact First Aid Kit;Compact First Aid Kit;Compact First Aid Kit;Compact First Aid Kit;Ammo crate"});
 		
 		Role@ ChaosSer = Role(ROLE_CHAOS_GUNNER, "Chaos Insurgency Gunner", CATEGORY_INMATE, PlayerModel(CHAOS_MODEL), Color(26, 64, 1), "Find and save Class D",
 		{ 
@@ -461,7 +461,7 @@ namespace Roles
 			Spawnpoint(vector3(frand(-4000.0, -4500.0), 78, frand(10400.0, 11200.0)), 0.0, 180.0, gate_a_b),
 			Spawnpoint(vector3(frand(-4000.0, -4500.0), 78, frand(10400.0, 11200.0)), 0.0, 180.0, gate_a_b),
 			Spawnpoint(vector3(frand(-4000.0, -4500.0), 78, frand(10400.0, 11200.0)), 0.0, 180.0, gate_a_b)
-		}, {"M60", "Glock", "Hacking Device", "Radio Transceiver", "Compact First Aid Kit;Heavy Ballistic Helmet;Heavy Ballistic Vest;Handcuffs"});
+		}, {"M60", "Glock", "Hacking Device", "Radio Transceiver", "Compact First Aid Kit;Heavy Ballistic Helmet;Heavy Ballistic Vest;Handcuffs;Ammo crate"});
 		
 		Role@ ChaosCom = Role(ROLE_CHAOS_COMMANDER, "Chaos Insurgency Captain", CATEGORY_INMATE, PlayerModel(CHAOS_MODEL), Color(26, 64, 1), "Find and save Class D. Command your subordinates.",
 		{ 
@@ -481,7 +481,7 @@ namespace Roles
 			Spawnpoint(vector3(frand(-4000.0, -4500.0), 78, frand(10400.0, 11200.0)), 0.0, 180.0, gate_a_b),
 			Spawnpoint(vector3(frand(-4000.0, -4500.0), 78, frand(10400.0, 11200.0)), 0.0, 180.0, gate_a_b),
 			Spawnpoint(vector3(frand(-4000.0, -4500.0), 78, frand(10400.0, 11200.0)), 0.0, 180.0, gate_a_b)
-		}, {"M4A1", "Glock", "Hacking Device", "Radio Transceiver", "Compact First Aid Kit;Ballistic Helmet;Heavy Ballistic Vest;Handcuffs"});
+		}, {"M4A1", "Glock", "Hacking Device", "Radio Transceiver", "Compact First Aid Kit;Ballistic Helmet;Heavy Ballistic Vest;Handcuffs;Ammo crate"});
 		
 		Role@ GOC = Role(ROLE_GOC, "Global Occult Coalition", CATEGORY_GOC, PlayerModel(GOC_MODEL, {GOC_TEXTURE}), Color(89, 148, 229), "Eliminate everyone in the complex.",
 		{ 
@@ -499,7 +499,7 @@ namespace Roles
 			Spawnpoint(vector3(frand(-4437.0, -4000.0), 1320, frand(6200.0, 6800.0)), 0.0, -90.0, gate_a_b),
 			Spawnpoint(vector3(frand(-4437.0, -4000.0), 1320, frand(6200.0, 6800.0)), 0.0, -90.0, gate_a_b),
 			Spawnpoint(vector3(frand(-4437.0, -4000.0), 1320, frand(6200.0, 6800.0)), 0.0, -90.0, gate_a_b)
-		}, {"M4A1", "M60", "Key Card Omni", "Radio Transceiver", "Handcuffs;Compact First Aid Kit;Compact First Aid Kit;Ballistic Helmet;Heavy Ballistic Vest"});
+		}, {"M4A1", "M60", "Key Card Omni", "Radio Transceiver", "Handcuffs;Compact First Aid Kit;Compact First Aid Kit;Ballistic Helmet;Heavy Ballistic Vest;Ammo crate"});
 		
 		Role@ scp173 = Role(ROLE_SCP_173, "SCP-173", CATEGORY_ANOMALY, PlayerModel(SCP_173_MODEL), Color(200, 0, 0), "Kill everyone. Wait 45 seconds to start.",
 		{

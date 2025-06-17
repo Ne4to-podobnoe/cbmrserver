@@ -18,11 +18,12 @@ void OnInitialize() // Initialize when script loads. Don't use WORLD functions t
 
 	@GlobalBans = BanList("banlist.txt");
 	
-	CreateTimer("Round::Update", 1000, true);
-	CreateTimer("Lobby::Update", 1000, true);
+	CreateTimer(Round::Update, 1000, true);
+	CreateTimer(Lobby::Update, 1000, true);
 	
 	server.disablenpcs = true; // Forcely set disablenpcs flag
 	server.gamemode = "Breach";
+	server.respawntime = 0;
 	
 	print("Loaded Breach gamemode.");
 }

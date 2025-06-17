@@ -35,8 +35,6 @@ class info_Player
 	float intercomTimeout;
 	//
 	int recontainState;
-	//
-	Object editObject;
 }
 
 class PlayerModel
@@ -212,11 +210,6 @@ void UpdatePlayerRole(Player p)
 	
 	bool Timeout = (playerInfo.pClass.category == CATEGORY_ANOMALY && (ROUND_TIME - Round::GetTimer() < SCP_TIMEOUT));
 	p.Desync(Timeout);
-	
-	if(playerInfo.editObject != NULL) {
-		Entity picked = p.GetHead().Pick(100.0);
-		if(picked != NULL) playerInfo.editObject.GetEntity().SetPosition(PickedX(), PickedY(), PickedZ(), true);
-	}
 	
 	if(playerInfo.pClass.idleSounds.size() > 0) {
 		playerInfo.idleSoundTimer += 0.1;
@@ -421,7 +414,7 @@ void CreateRoleMessage(Player p)
 	
 	int timerData = CreateTimerData();
 	SetTimerHandle(timerData, p);
-	playerInfo.roleTimer = CreateTimer("SetRoleTextOpacity", 5000, false, timerData);
+	playerInfo.roleTimer = CreateTimer(SetRoleTextOpacity, 5000, false, timerData);
 	
 	playerInfo.pYouAre[0] = graphics.CreateText(p, 8, "&col[ffffff]YOU ARE &colr[" + playerRole.color.R() + " " + playerRole.color.G() + " " + playerRole.color.B() +"]" + playerRole.name, 0.5, 0.15, true);
 	playerInfo.pYouAre[1] = graphics.CreateText(p, 8, "&col[ffffff] " + playerRole.rTask, 0.5, 0.2, true);
@@ -435,7 +428,7 @@ void SetRoleTextOpacity(Player p)
 	
 	int timerData = CreateTimerData();
 	SetTimerHandle(timerData, p);
-	playerInfo.roleTimer = CreateTimer("DestructRoleMessage", 5000, false, timerData);
+	playerInfo.roleTimer = CreateTimer(DestructRoleMessage, 5000, false, timerData);
 	
 	playerInfo.pYouAre[0].SetOpacity(0.0, 100.0);
 	playerInfo.pYouAre[1].SetOpacity(0.0, 100.0);
@@ -561,7 +554,7 @@ void PlayPlayerAnimation(Player p, int anim, int time)
 	info_Player@ playerInfo = GetPlayerInfo(p);
 	int timerData = CreateTimerData();
 	SetTimerHandle(timerData, p);
-	playerInfo.animTimer = CreateTimer("StopPlayerAnimation", time, false, timerData);
+	playerInfo.animTimer = CreateTimer(StopPlayerAnimation, time, false, timerData);
 	p.SetAnimation(anim);
 }
 
@@ -771,7 +764,7 @@ namespace PlayerTimers
 				SetTimerHandle(timerData, p);
 				SetTimerInt(timerData, 1);
 				SetTimerFloat(timerData, 0.0);
-				CreateTimer("PlayerTimers::RecontainmentProcedure", 2000, false, timerData);
+				CreateTimer(RecontainmentProcedure, 2000, false, timerData);
 				break;
 			}
 			case 1:
@@ -793,7 +786,7 @@ namespace PlayerTimers
 				SetTimerHandle(timerData, p);
 				SetTimerInt(timerData, 2);
 				SetTimerFloat(timerData, 0.0);
-				CreateTimer("PlayerTimers::RecontainmentProcedure", 5000, false, timerData);
+				CreateTimer(RecontainmentProcedure, 5000, false, timerData);
 				break;
 			}
 			case 2:
@@ -819,7 +812,7 @@ namespace PlayerTimers
 				SetTimerHandle(timerData, 0);
 				SetTimerInt(timerData, 2);
 				SetTimerFloat(timerData, offset + 0.001);
-				CreateTimer("PlayerTimers::RecontainmentProcedure", 25, false, timerData);
+				CreateTimer(RecontainmentProcedure, 25, false, timerData);
 				break;
 			}
 		}
@@ -968,7 +961,7 @@ namespace PlayerCallbacks
 		
 		int timerData = CreateTimerData();
 		SetTimerHandle(timerData, player);
-		playerInfo.logicTimer = CreateTimer("PlayerTimers::Logic", 100, true, timerData);
+		playerInfo.logicTimer = CreateTimer(PlayerTimers::Logic, 100, true, timerData);
 		connPlayers.push_back(player);
 		
 		if(player.IsBot())
@@ -1029,51 +1022,7 @@ namespace PlayerCallbacks
 					AdminPanel::Show(player);
 					return false;
 				}
-				
-				if(command == "removeobject")
-				{
-					if(playerInfo.editObject != NULL) {
-						playerInfo.editObject.Remove();
-						playerInfo.editObject = NULL;
-					}
-					return false;
-				}
-				if(command == "object")
-				{
-					if(player.IsAdmin())
-					{
-						if(playerInfo.editObject != NULL)
-						{
-							playerInfo.editObject.SetRoom(player.GetRoom());
-							Entity b = playerInfo.editObject.GetEntity();
-							b.SetParent(player.GetRoom().GetEntity());
-							chat.SendPlayer(player, "The object was fixed. " + b.PositionX() + " " + b.PositionY() + " " + b.PositionZ() + " " + b.ScaleX() + " " + b.ScaleY() + " " + b.ScaleZ() + " " + b.Pitch() + " " + b.Yaw() + " " + b.Roll());
-							playerInfo.editObject = NULL;
-						}
-						else {
-							if(values.size() >= 2) {
-								playerInfo.editObject = world.CreateObject(parseInt(values[1]), NULL);
-								chat.SendPlayer(player, "To fix object use /object");
-							}
-						}
-					}
-					return false;
-				}
-				
-				if(command == "setobjectdata")
-				{
-					if(player.IsAdmin())
-					{
-						if(playerInfo.editObject != NULL && values.size() >= 5)
-						{
-							Entity b = playerInfo.editObject.GetEntity();
-							b.SetScale(parseFloat(values[1]),parseFloat(values[1]),parseFloat(values[1]));
-							b.SetRotation(parseFloat(values[2]),parseFloat(values[3]),parseFloat(values[4]));
-						}
-					}
-					return false;
-				}
-				
+
 				if(command == "capture")
 				{
 					if(!player.IsDead() && player.IsAdmin())
@@ -1345,7 +1294,7 @@ namespace PlayerCallbacks
 					SetTimerHandle(timerData, c);
 					SetTimerFloat(timerData, c.GetTimeout());
 					SetTimerInt(timerData, 1);
-					CreateTimer("PlayerTimers::CorpseAction", 0, false, timerData);
+					CreateTimer(PlayerTimers::CorpseAction, 0, false, timerData);
 					
 					SetPlayerInterval(p, 2.0);
 				}
@@ -1356,7 +1305,7 @@ namespace PlayerCallbacks
 			SetTimerHandle(timerData, c);
 			SetTimerFloat(timerData, c.GetTimeout());
 			SetTimerInt(timerData, 0);
-			CreateTimer("PlayerTimers::CorpseAction", 0, false, timerData);
+			CreateTimer(PlayerTimers::CorpseAction, 0, false, timerData);
 			c.SetExplore(false);
 			if(c.GetItemsCount() == 0) p.SendMessage("Nothing found");
 		}
@@ -1421,7 +1370,7 @@ namespace PlayerCallbacks
 			
 			int timerData = CreateTimerData();
 			SetTimerHandle(timerData, p);
-			playerInfo.intercomTimer = CreateTimer("EndPlayerIntercom", 20000, false, timerData);
+			playerInfo.intercomTimer = CreateTimer(EndPlayerIntercom, 20000, false, timerData);
 			p.SetGlobalTransmission(true);
 		}
 		else if(obj == WarheadsButton)
@@ -1470,7 +1419,7 @@ namespace PlayerCallbacks
 						SetTimerHandle(timerData, dest);
 						SetTimerInt(timerData, 0);
 						SetTimerFloat(timerData, 0.0);
-						CreateTimer("PlayerTimers::RecontainmentProcedure", 2000, false, timerData);
+						CreateTimer(PlayerTimers::RecontainmentProcedure, 2000, false, timerData);
 						destInfo.recontainState = 1;
 						
 						audio.Play3DSound("SFX/Door/DoorOpen2.ogg", Recontainer.GetEntity(), 15.0, 0.8);
