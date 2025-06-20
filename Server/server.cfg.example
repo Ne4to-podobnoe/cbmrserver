@@ -26,6 +26,10 @@ allowjump true
 gravity 1.0
 script
 
+// How to setup Breach gamemode?
+// Copy Breach gamemode from Tools folder and move to preferred folder
+// Now setup script for example: script preferred/breach.as
+//
 // Available commands:
 // hostname - Server hostname
 // port - Server port
