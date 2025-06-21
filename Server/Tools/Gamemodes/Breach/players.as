@@ -513,7 +513,7 @@ void SetProximityBlinking(Player p, float time)
 	}
 }
 
-bool IsPlayerFriend(Player src, Player dest)
+bool IsPlayerFriend(Player src, Player dest, Role@ tmp = null)
 {
 	info_Player@ playerInfosrc = GetPlayerInfo(src);
 	info_Player@ playerInfodest = GetPlayerInfo(dest);
@@ -521,7 +521,7 @@ bool IsPlayerFriend(Player src, Player dest)
 	return playerInfosrc.pClass.IsAFriend(playerInfodest.pClass);
 }
 
-bool IsPlayerFriend(Player src, Role@ role)
+bool IsPlayerFriend(Player src, Role@ role, Role@ tmp = null)
 {
 	info_Player@ playerInfosrc = GetPlayerInfo(src);
 	if(@playerInfosrc.pClass == null) return false;
@@ -1410,11 +1410,11 @@ namespace PlayerCallbacks
 
 			for(int i = 0; i < connPlayers.size(); i++) {
 				Player dest = connPlayers[i];
-				if(!dest.IsDead()) {
+				if(!dest.IsDead() && dest != p) {
 					info_Player@ destInfo = GetPlayerInfo(dest);
 					Entity pent = dest.GetEntity();
 					if(destInfo.pClass.category != CATEGORY_ANOMALY && destInfo.pClass.category != CATEGORY_ANOMALYSTALEMATE
-					&& DistanceSquared(vector3(x, y, z), vector3(pent.PositionX(),pent.PositionY(),pent.PositionZ())) <= 0.8) {
+					&& DistanceSquared(vector3(x, y, z), vector3(pent.PositionX(),pent.PositionY(),pent.PositionZ())) <= 0.6) {
 						int timerData = CreateTimerData();
 						SetTimerHandle(timerData, dest);
 						SetTimerInt(timerData, 0);
