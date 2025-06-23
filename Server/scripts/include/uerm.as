@@ -357,6 +357,7 @@ enum RoomIdentifiers
 	//
 	r_gate_a_b = 114,
 	r_cont3_009 = 115,
+	r_room2_tesla_2_hcz = 116,
 	r_RESERVED = 300 // Rooms ID to 300 are reserved for future versions of UERM
 }
 
@@ -436,7 +437,8 @@ enum EventIdentifiers
 	e_trick = 73, e_trick_item = 74,
 	e_dimension_106 = 75, e_dimension_1499 = 76,
 	e_gate_a_b = 77,
-	e_cont3_009 = 78
+	e_cont3_009 = 78,
+	e_broken_tesla = 79
 }
 
 enum ItemsIdentifiers
@@ -608,6 +610,8 @@ enum ItemsIdentifiers
 	it_remington = 122,
 	it_fine513 = 123,
 	it_backpack = 124,
+	it_ammocrate = 125,
+	it_headphones = 126,
 	it_RESERVETO = 500 // Items ID to 500 are reserved for future versions of UERM
 }
 
@@ -685,7 +689,7 @@ enum NPCTypes
 	NPCType008_1 = 0, NPCType008_1_Surgeon = 1, NPCType035_Tentacle = 2, NPCType049 = 3, NPCType049_2 = 4, NPCType066 = 5, NPCType096 = 6,
 	NPCType106 = 7, NPCType173 = 8, NPCType372 = 9, NPCType513_1 = 10, NPCType860_2 = 11, NPCType939 = 12,
 	NPCType966 = 13, NPCType999 = 14, NPCType1048 = 15, NPCType1048_A = 16, NPCType1499_1 = 17,
-	NPCTypeApache = 18, NPCTypeClerk = 19, NPCTypeD = 20, NPCTypeGuard = 21, NPCTypeMTF = 22
+	NPCTypeApache = 18, NPCTypeClerk = 19, NPCTypeD = 20, NPCTypeGuard = 21, NPCTypeMTF = 22, NPCTypeCockroach = 23
 }
 
 enum Fonts
@@ -742,6 +746,15 @@ enum KeysTypes
 
 bool IsKeyPressed(int key, int newmask, int prevmask) { return (newmask & key) != 0 && (prevmask & key) == 0; }
 bool IsKeyReleased(int key, int newmask, int prevmask) { return (newmask & key) == 0 && (prevmask & key) != 0; }
+
+enum MouseTypes
+{
+	MOUSE_LMB = 0x01,
+	MOUSE_RMB = 0x02,
+	MOUSE_MMB = 0x04
+}
+
+bool IsMousePressed(int mask, int button) { return ((mask & button) != 0); } // For PlayerHitPlayer_c callback
 
 const float ROOM_SCALE = 8.0 / 2048.0;
 
