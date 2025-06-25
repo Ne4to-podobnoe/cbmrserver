@@ -32,7 +32,8 @@ enum Callbacks
 	ServerConsole_c			= 30,
 	ServerRestart_c			= 31,
 	PlayerShootNPC_c		= 32,
-	PlayerKeyAction_c		= 33
+	PlayerKeyAction_c		= 33,
+	OnLog_c					= 34
 }
 
 const string[] EventCallbacks = 
@@ -70,7 +71,8 @@ const string[] EventCallbacks =
 	"OnServerConsole",
 	"OnServerRestart",
 	"OnPlayerShootNPC",
-	"OnPlayerKeyAction"
+	"OnPlayerKeyAction",
+	"OnLogMessage"
 };
 
 // You can register a callback for an indefinite number of functions.
@@ -119,6 +121,7 @@ void RegisterAllCallbacks()
 	RegisterCallback(ServerRestart_c);
 	RegisterCallback(PlayerShootNPC_c);
 	RegisterCallback(PlayerKeyAction_c);
+	RegisterCallback(OnLog_c);
 }
 
 enum Dialog
