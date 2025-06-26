@@ -171,6 +171,7 @@ void NullPlayerStats(Player p)
 	info_Player@ playerInfo = GetPlayerInfo(p);
 	Role@ prevRole = playerInfo.pClass;
 	// Null
+	p.SetStaminaMultiplier(1.0);
 	p.SetAttach(ATTACH_WRIST, 0);
 	p.SetInvisible(false);
 	p.IgnoreProximity(false);
@@ -202,7 +203,7 @@ void UpdatePlayerRole(Player p)
 {
 	info_Player@ playerInfo = GetPlayerInfo(p);
 	
-	if(!p.IsDead() && p.GetInjuries() > 9.0) KillPlayer(p, NULL, "for unknown reason");
+	if(!p.IsDead() && p.GetInjuries() > 8.5) KillPlayer(p, NULL, "for unknown reason");
 	
 	if(playerInfo.cuffer != NULL && playerInfo.cuffer.IsDead()) playerInfo.cuffer = NULL;
 	
@@ -315,6 +316,7 @@ void UpdatePlayerRole(Player p)
 				p.SetSpeedMultiplier(playerInfo.triggerTime > 30.0 ? 2.0 : 0.25);
 				
 				if(playerInfo.triggerTime > 30.0) {
+					p.SetStaminaMultiplier(1.0);
 					playerInfo.triggered = false;
 					playerInfo.soundTimer -= 0.1;
 					
@@ -370,6 +372,7 @@ void UpdatePlayerRole(Player p)
 				}
 			}
 			else {
+				p.SetStaminaMultiplier(50.0);
 				p.SetSpeedMultiplier(1.0);
 				p.IgnoreProximity(false);
 			}
@@ -465,7 +468,7 @@ string GetPlayerStatus(Player p)
 			
 		health = ((8.0 - p.GetInjuries()) / info.pClass.damagemultiplier) * multiplier;
 	}
-	return "&colr[200 30 30]" + int(health) + " HP";
+	return "&colr[200 30 30]" + int(max(health, 0)) + " HP";
 	/*float bloodloss = p.GetBloodloss();
 	
 	if(bloodloss > 20.0 && injuries < 4.0) return "&colr[255 100 0]Bad";
@@ -583,11 +586,11 @@ namespace PlayerTimers
 			}
 		}
 		
+		UpdatePlayerRole(p);
 		if(@playerInfo.pClass != null) {
 			playerInfo.RoleInfo.SetText(playerInfo.pClass.GetFormatColor() + playerInfo.pClass.name + ".&r[] Status: " + GetPlayerStatus(p));
 		}
 		else playerInfo.RoleInfo.SetText("");
-		UpdatePlayerRole(p);
 		
 		playerInfo.intercomTimeout -= 0.1;
 	}
@@ -1258,6 +1261,8 @@ namespace PlayerCallbacks
 			else KillPlayer(dest, src, headshot ? "in head" : "");
 		}
 
+		dest.SendDamage(src, damage, headshot, x, y, z);
+		
 		return false;
 	}
 	bool OnExploreCorpse(Player p, Corpse c)
