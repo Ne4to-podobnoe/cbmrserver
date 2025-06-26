@@ -1248,6 +1248,7 @@ namespace PlayerCallbacks
 	}
 	bool OnShootPlayer(Player src, Player dest, float x, float y, float z, float damage, bool headshot)
 	{
+		dest.SendDamage(src, damage, headshot, x, y, z);
 		if(IsPlayerFriend(src, dest) && !Round::GetSettings().friendlyfire) return false;
 		info_Player@ destInfo = GetPlayerInfo(dest);
 		damage *= (@destInfo.pClass != null) ? destInfo.pClass.damagemultiplier : 1.0;
@@ -1261,8 +1262,6 @@ namespace PlayerCallbacks
 			else KillPlayer(dest, src, headshot ? "in head" : "");
 		}
 
-		dest.SendDamage(src, damage, headshot, x, y, z);
-		
 		return false;
 	}
 	bool OnExploreCorpse(Player p, Corpse c)
