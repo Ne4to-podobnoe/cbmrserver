@@ -281,6 +281,7 @@ void UpdatePlayerRole(Player p)
 				info_Player@ destInfo = GetPlayerInfo(dest);
 				if(playerInfo.triggeredPlayers[dest.GetIndex()] == NULL && 
 				!dest.IsDead() && 
+				!dest.IsBlinking() &&
 				!IsPlayerFriend(p, dest) &&
 				p.GetRoom().IsAdjacent(dest.GetRoom()) &&
 				p.GetHead().InView(dest.GetHead()) && 
@@ -460,15 +461,9 @@ string GetPlayerStatus(Player p)
 {
 	if(p.IsDead()) return "Dead";
 	info_Player@ info = GetPlayerInfo(p);
-	float health = max((8.0 - p.GetInjuries()) * 12.5, 1.0);
-	if(@info.pClass != null && info.pClass.damagemultiplier < 1.0) {
-		float fullhealth = 8.0 / info.pClass.damagemultiplier;
-		float multiplier = 1.0f;
-		if(fullhealth < 100) multiplier = 100.0 / fullhealth;
-			
-		health = ((8.0 - p.GetInjuries()) / info.pClass.damagemultiplier) * multiplier;
-	}
-	return "&colr[200 30 30]" + int(max(health, 0)) + " HP";
+	float maxhealth = 8.0 / info.pClass.damagemultiplier;
+	float delta = 1.0f - (min(p.GetInjuries(), 8.0) / 8.0);
+	return "&colr[200 30 30]" + int(maxhealth * 12.5 * delta) + " HP";
 	/*float bloodloss = p.GetBloodloss();
 	
 	if(bloodloss > 20.0 && injuries < 4.0) return "&colr[255 100 0]Bad";

@@ -45,7 +45,7 @@ enum Categories
 class Role
 {
 	Role() { }
-	Role(int id, string n, int ct, PlayerModel modelp, Color c, string task, array<Spawnpoint@> s = {}, array<string> Items = {}, bool sng = false, float dmg = 0.0, int shootsForDeath = 8, float ht = 0, bool godm = false)
+	Role(int id, string n, int ct, PlayerModel modelp, Color c, string task, array<Spawnpoint@> s = {}, array<string> Items = {}, bool sng = false, float dmg = 0.0, int health = 100, float ht = 0, bool godm = false)
 	{
 		name = n;
 		roleid = id;
@@ -56,7 +56,7 @@ class Role
 		rTask = task;
 		single = sng;
 		damage = dmg;
-		damagemultiplier = 8.0 / shootsForDeath;
+		damagemultiplier = 8.0 / (health / 12.5);
 		hitTime = ht;
 		items = Items;
 		godmode = godm;
@@ -504,51 +504,51 @@ namespace Roles
 		Role@ scp173 = Role(ROLE_SCP_173, "SCP-173", CATEGORY_ANOMALY, PlayerModel(SCP_173_MODEL), Color(200, 0, 0), "Kill everyone. Wait 45 seconds to start.",
 		{
 			Spawnpoint(vector3(0, 78, 0), 0.0, 0.0, cont1_173)
-		}, {}, true, 0.0, 1000, 1, true);
+		}, {}, true, 0.0, 12000, 1, true);
 		
 		Role@ scp049 = Role(ROLE_SCP_049, "SCP-049", CATEGORY_ANOMALY, PlayerModel(SCP_049_MODEL), Color(200, 0, 0), "Cure everyone. Wait 45 seconds to start.",
 		{
 			Spawnpoint(vector3(0, 83, 597), 0.0, 0.0, world.GetRoomByIdentifier(r_cont2_049))
-		}, {}, true, 0.0, 800, 8, true);
+		}, {}, true, 0.0, 10000, 8, true);
 		
 		Role@ scp106 = Role(ROLE_SCP_106, "SCP-106", CATEGORY_ANOMALY, PlayerModel(SCP_106_MODEL), Color(200, 0, 0), "Kill everyone. Wait 45 seconds to start.",
 		{
 			Spawnpoint(vector3(-132, 83, -704), 0.0, 0.0, world.GetRoomByIdentifier(r_cont1_106))
-		}, {}, true, 4.0, 700, 1.5, true);
+		}, {}, true, 4.0, 8750, 1.5, true);
 		
 		Role@ scp939 = Role(ROLE_SCP_939, "SCP-939", CATEGORY_ANOMALY, PlayerModel(SCP_939_MODEL), Color(200, 0, 0), "Kill everyone. Wait 45 seconds to start.",
 		{
 			Spawnpoint(vector3(567.0, -5550.0, 5176.0), 0.0, 0.0, room3_storage),
 			Spawnpoint(vector3(3980.0, -5550.0, -968.0), 0.0, 0.0, room3_storage),
 			Spawnpoint(vector3(1083.0, -5550.0, 3023.0), 0.0, 0.0, room3_storage)
-		}, {}, true, 1.3, 600, 0.75, true);
+		}, {}, true, 1.3, 7500, 0.75, true);
 		
 		Role@ scp966 = Role(ROLE_SCP_966, "SCP-966", CATEGORY_ANOMALY, PlayerModel(SCP_966_MODEL), Color(200, 0, 0), "Kill everyone. Wait 45 seconds to start.",
 		{
 			Spawnpoint(vector3(0.0, 78.0, 512.0), 0.0, 0.0, cont3_966),
 			Spawnpoint(vector3(0.0, 78.0, 0.0), 0.0, 0.0, cont3_966)
-		}, {}, true, 1.0, 500, 0.75, true);
+		}, {}, true, 1.0, 6250, 0.75, true);
 		
 		Role@ scp096 = Role(ROLE_SCP_096, "SCP-096", CATEGORY_ANOMALY, PlayerModel(SCP_096_MODEL), Color(200, 0, 0), "Kill everyone. Wait 45 seconds to start.",
 		{
 			Spawnpoint(vector3(-1368, 78.0, 368), 0.0, 0.0, room2_servers_hcz)
-		}, {}, true, 0.01, 450, 0.75, true);
+		}, {}, true, 0.01, 5600, 0.75, true);
 		
 		Role@ scp860 = Role(ROLE_SCP_860, "SCP-860-2", CATEGORY_ANOMALY, PlayerModel(SCP_860_MODEL), Color(200, 0, 0), "Kill everyone. Wait 45 seconds to start.",
 		{
 			Spawnpoint(vector3(0, 80.0, 0), 0.0, 0.0, world.GetRoomByIdentifier(r_cont2_860_1))
-		}, {}, true, 1.2, 500, 0.75, true);
+		}, {}, true, 1.2, 6250, 0.75, true);
 		
-		Role@ scp0492 = Role(ROLE_SCP_0492, "SCP-049-2", CATEGORY_ANOMALY, PlayerModel(ZOMBIE_MODEL, {CLASS_D_ZOMBIE_TEXTURE}), Color(200, 0, 0), "Kill everyone. Listen to SCP-049", {}, {}, false, 1.0, 20, 0.75, false);
-		Role@ scp0492_guard = Role(ROLE_SCP_0492_GUARD, "SCP-049-2", CATEGORY_ANOMALY, PlayerModel(ZOMBIE_GUARD_MODEL), Color(200, 0, 0), "Kill everyone. Listen to SCP-049", {}, {}, false, 1.0, 20, 0.75, false);
-		Role@ scp035 = Role(ROLE_SCP_035, "SCP-035", CATEGORY_ANOMALY, PlayerModel(), Color(200, 0, 0), "Kill everyone.", {}, {}, false, 1.0, 40, 0.0, false);
+		Role@ scp0492 = Role(ROLE_SCP_0492, "SCP-049-2", CATEGORY_ANOMALY, PlayerModel(ZOMBIE_MODEL, {CLASS_D_ZOMBIE_TEXTURE}), Color(200, 0, 0), "Kill everyone. Listen to SCP-049", {}, {}, false, 1.0, 250, 0.75, false);
+		Role@ scp0492_guard = Role(ROLE_SCP_0492_GUARD, "SCP-049-2", CATEGORY_ANOMALY, PlayerModel(ZOMBIE_GUARD_MODEL), Color(200, 0, 0), "Kill everyone. Listen to SCP-049", {}, {}, false, 1.0, 250, 0.75, false);
+		Role@ scp035 = Role(ROLE_SCP_035, "SCP-035", CATEGORY_ANOMALY, PlayerModel(), Color(200, 0, 0), "Kill everyone.", {}, {}, false, 1.0, 500, 0.0, false);
 		
 		Role@ scp999 = Role(ROLE_SCP_999, "SCP-999", CATEGORY_ANOMALYSTALEMATE, PlayerModel(SCP_999_MODEL), Color(200, 50, 50), "Heal whoever you want.",
 		{
 			Spawnpoint(vector3(0, 80.0, 0), 0.0, 0.0, world.GetRoomByIdentifier(r_room2_office))
-		}, {}, false, 0.0, 300, 8.0, true);
+		}, {}, false, 0.0, 3750, 8.0, true);
 		
-		Role@ Ghost = Role(ROLE_GHOST, "Ghost", CATEGORY_STALEMATE, PlayerModel(CLASS_D_MODEL), Color(212,113,0), "", {Spawnpoint(vector3(-2874.0, 470, 9366.3), 0.0, -90.0, cont1_173)}, {}, false, 1.0, 1000, 0.0, true);
+		Role@ Ghost = Role(ROLE_GHOST, "Ghost", CATEGORY_STALEMATE, PlayerModel(CLASS_D_MODEL), Color(212,113,0), "", {Spawnpoint(vector3(-2874.0, 470, 9366.3), 0.0, -90.0, cont1_173)}, {}, false, 1.0, 20000, 0.0, true);
 		
 		ClassD.SetGenerationFactor(8);
 		Janitor.SetGenerationFactor(1.9);
