@@ -1,0 +1,1 @@
+Look http://scpcbmr.42web.io for scripts documentation
