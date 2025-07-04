@@ -251,7 +251,7 @@ void UpdatePlayerRole(Player p)
 		{
 			playerInfo.blinkInterval -= 0.1;
 			if(playerInfo.blinkInterval <= 0.0) {
-				SetProximityBlinking(p, 0.5);
+				SetProximityBlinking(p, 0.75);
 				playerInfo.blinkInterval = 10;
 			}
 	
