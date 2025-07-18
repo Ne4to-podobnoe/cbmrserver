@@ -1,0 +1,62 @@
+hostname
+port 39100
+chat true
+corpsealivetime 60
+timeout 15
+maxplayers 60
+adminpassword
+console false
+voicebitrate 60
+mapseed
+difficulty 0
+gamemode
+emptybehaviour 1
+scriptsautoload true
+disablenpcs false
+proximityplayers 500000.0
+mapbounds 1000.0
+respawntime 0
+contenturl
+password
+improvedgates false
+mapsize 21
+masterserver 65535
+description
+allowjump true
+gravity 1.0
+script
+
+// How to setup Breach gamemode?
+// Copy Breach gamemode from Tools folder and move to preferred folder
+// Now setup script for example: script preferred/breach.as
+//
+// Available commands:
+// hostname - Server hostname
+// port - Server port
+// chat - Allow players to chat
+// corpsealivetime - dead bodies removal time in seconds (may cause perfomance issues if too high).
+// timeout - player timeout connection loss kick in seconds
+// maxplayers - 60 is VERY recommended due to MTU limit (some players may lose data if more than 60)
+// adminpassword - password for console allow, empty - disabled. Use /logadmin
+// console - allow console for everybody
+// voicebitrate - KBit/s, lower value will reduce network eating but quality will be bad, 0 - auto, 255 - max
+// mapseed - empty string - random seed
+// difficulty - 0 - safe, 1 - euclid, 2 - keter, 3 - apollyon
+// gamemode - Gamemode name in server list
+// emptybehaviour - 0 - restart server and waiting for players, 1 - pause and waiting for players, 2 - without pause and restart, 0 not recommended
+// scriptsautoload - Load scripts from scripts\autoload folder
+// disablenpcs - Disable NPCs and relatives events
+// proximityplayers - the players will see the players at that distance
+// mapbounds - the bounds of map (player XYZ can't go through this value)
+// respawntime - respawn time in seconds. 0 - disable auto-respawn,
+// contenturl - The server content URL
+// password
+// improvedgates - Enable doubled gates
+// mapsize - 6-28 is allowed. 21 is default. (small - 12) (medium - 16) (big - 22) With small map sizes it is very possible for important rooms to not appear, so keep this in mind when shrinking the map.
+// masterserver - Port for Steam master server. (65535 using main server port, so its recommended to not change this). Set 0 to disable
+// description - available formats: &colr[r g b], &col[hex], &r or &w - white, &hyperlink[link,underlined]: Example: &colr[255 0 0]Server. &hyperlink[google.com,1]CLICKABLE
+// allowjump - Allow jumps
+// fastslots - Enable hot slots
+// gravity - Gravity multiplier. Default is 1.0
+// script - Load scripts from filename (You can use this command few times)
+// plugin - Load plugin from filename (You can use this command few times)
