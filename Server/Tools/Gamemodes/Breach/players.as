@@ -1067,6 +1067,7 @@ namespace PlayerCallbacks
 	void OnHitPlayer(Player p, Player hit, int mouse, float distance)
 	{
 		info_Player@ playerInfo = GetPlayerInfo(p);
+		info_Player@ hitInfo = GetPlayerInfo(hit);
 		if((mouse & 1 != 0))
 		{
 			if(@playerInfo.pClass != null && playerInfo.pClass.hitTime > 0.0 && distance < 1.5 && playerInfo.hitElement == NULL && ROUND_TIME - Round::GetTimer() >= SCP_TIMEOUT) 
@@ -1180,7 +1181,6 @@ namespace PlayerCallbacks
 			{
 				if(p.GetAttach(ATTACH_WEAPON) == WEAPON_CUFFS_ATTACHMODEL && p.GetAttachItem(ATTACH_WEAPON) != NULL) {
 					if(hit.GetAttach(ATTACH_WRIST) != WEAPON_CUFFED_ATTACHMODEL) {
-						info_Player@ hitInfo = GetPlayerInfo(hit);
 						if(@hitInfo.pClass == null || (hitInfo.pClass.category != CATEGORY_ANOMALY && hitInfo.pClass.category != CATEGORY_ANOMALYSTALEMATE && ((!IsPlayerFriend(p, hit) && hit.GetAttach(ATTACH_WEAPON) == 0) || p.IsAdmin())))
 						{
 							p.SendMessage("Cuffing the player...");
@@ -1201,6 +1201,18 @@ namespace PlayerCallbacks
 					playerInfo.cuffElement = graphics.CreateProgressBar(p, IsCuffer ? 1.0 : 5.0, 0.5, 0.9, 0.15, 0.015, true, "PlayerTimers::PlayerUncuffPlayer");
 					playerInfo.cuffElement.SetColor(150, 150, 150);
 					playerInfo.cuffElement.SetData(formatInt(hit.GetIndex()) + (IsCuffer ? "" : "."));
+				}
+			}
+
+			if (distance < 1.5 && p.GetAttachItem(ATTACH_WEAPON) == NULL && playerInfo.hitElement == NULL)
+			{
+				if (@hitInfo.pClass != null && hitInfo.pClass.category != CATEGORY_ANOMALY && hitInfo.pClass.category != CATEGORY_ANOMALYSTALEMATE && !IsPlayerFriend(p, hit) && !hit.GetGodmode()) {
+					audio.Play3DSound("SFX/Character/D9341/Damage" + rand(2, 4) + ".ogg", hit.GetEntity(), 8.0, 0.8);
+					hit.SetInjuries(hit.GetInjuries() + 0.5);
+					if(hit.GetInjuries() >= 8.0) KillPlayer(hit, p);
+							
+					PlayPlayerAnimation(p, PLAYER_MODEL_ANIMATION_IDLE_ARMED_RIFLE + 2 * rand(0, 1), 1000);
+					SetPlayerInterval(p, 1.2f);
 				}
 			}
 		}
