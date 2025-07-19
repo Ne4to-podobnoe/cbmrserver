@@ -1204,9 +1204,9 @@ namespace PlayerCallbacks
 				}
 			}
 
-			if (distance < 1.5 && p.GetAttachItem(ATTACH_WEAPON) == NULL && playerInfo.hitElement == NULL)
+			if (distance < 1.5 && p.GetAttachItem(ATTACH_WEAPON) == NULL && playerInfo.hitElement == NULL && @playerInfo.pClass != null)
 			{
-				if (@hitInfo.pClass != null && hitInfo.pClass.category != CATEGORY_ANOMALY && hitInfo.pClass.category != CATEGORY_ANOMALYSTALEMATE && !IsPlayerFriend(p, hit) && !hit.GetGodmode()) {
+				if (@hitInfo.pClass != null && playerInfo.pClass.category != CATEGORY_ANOMALY && playerInfo.pClass.category != CATEGORY_ANOMALYSTALEMATE && hitInfo.pClass.category != CATEGORY_ANOMALY && hitInfo.pClass.category != CATEGORY_ANOMALYSTALEMATE && !IsPlayerFriend(p, hit) && !hit.GetGodmode()) {
 					audio.Play3DSound("SFX/Character/D9341/Damage" + rand(2, 4) + ".ogg", hit.GetEntity(), 8.0, 0.8);
 					hit.SetInjuries(hit.GetInjuries() + 0.5);
 					if(hit.GetInjuries() >= 8.0) KillPlayer(hit, p);
