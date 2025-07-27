@@ -1453,6 +1453,12 @@ namespace PlayerCallbacks
 			p.SendMessage("msg::aid.stopall", 6.0, true);
 			return false;
 		}
+		if (item.GetTemplateIndex() == it_scp500pill)
+		{
+			p.SetInjuries(0.0);
+			p.SetBloodloss(0.0);
+			p.Console("heal");
+		}
 		return true;
 	}
 	void OnUse914(Player p, int setting)
