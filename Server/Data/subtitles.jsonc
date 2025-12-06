@@ -105,7 +105,7 @@
 	],
 	"SFX\\Room\\Intro\\Guard\\Ulgrin\\ExitCell.ogg": [
 		{
-			"text": "Hey, they got some work for ya. Do me a favor, and step outta your cell.",
+			"text": "Hey, they've got some work for ya. Do me a favor, and step outta your cell.",
 			"delay": 1.37,
 			"color": "guard",
 			"length": 4.14
@@ -2907,6 +2907,25 @@
 			"color": "announcement"
 		}
 	],
+	"SFX\\SCP\\079\\Reward.ogg": [
+		{
+			"text": "I HAVE OPENED THE DOORS TO ROSEWOOD.",
+			"delay": 1.25,
+			"color": "announcement"
+		},
+		{
+			"text": "TAKE WHAT YOU NEED AND LEAVE.",
+			"delay": 3.1,
+			"color": "announcement"
+		}
+	],
+	"SFX\\SCP\\079\\Stairs.ogg": [
+		{
+			"text": "DOCTOR, CHECK THE STAIRS.",
+			"delay": 1.25,
+			"color": "announcement"
+		}
+	],
 	"SFX\\SCP\\079\\TestroomWarning.ogg": [
 		{
 			"text": "YOU..-",
@@ -3757,12 +3776,12 @@
 	/* ENDINGS - GATE B */
 	"SFX\\Ending\\GateB\\682Battle.ogg": [
 		{
-			"text": "SCP-682 just broke out at Gate B. I want all avaliable helicopters and MTF units at Gate B now!",
+			"text": "SCP-682 just broke out at Gate B. I want all available helicopters and MTF units at Gate B now!",
 			"delay": 5.65,
 			"color": "announcement"
 		},
 		{
-			"text": "I repeat, SCP-682 is out of the facility! All avaliable helicopters and MTF units to Gate B now!",
+			"text": "I repeat, SCP-682 is out of the facility! All available helicopters and MTF units to Gate B now!",
 			"delay": 13.8,
 			"color": "announcement"
 		}

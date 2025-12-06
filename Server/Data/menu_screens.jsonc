@@ -1,0 +1,32 @@
+{
+	"screens": 
+	[
+		{
+			"image": "GFX/Menu/Screens/intro.png"
+		},
+		{
+			"image": "GFX/Menu/Screens/toilet.png"
+		},		
+		{
+			"image": "GFX/Menu/Screens/office.png"
+		},
+		{
+			"image": "GFX/Menu/Screens/checkpoint.png"
+		},
+		{
+			"image": "GFX/Menu/Screens/WT.png"
+		},
+		{
+			"image": "GFX/Menu/Screens/LCZcorridor.png"
+		},
+		{
+			"image": "GFX/Menu/Screens/ericChamber.png"
+		},
+		{
+			"image": "GFX/Menu/Screens/teslaRoom.png"
+		},
+		{
+			"image": "GFX/Menu/Screens/079Stairs.png"
+		}
+	]
+}

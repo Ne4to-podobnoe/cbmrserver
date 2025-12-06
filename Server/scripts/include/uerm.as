@@ -34,7 +34,8 @@ enum Callbacks
 	PlayerShootNPC_c		= 32,
 	PlayerKeyAction_c		= 33,
 	OnLog_c					= 34,
-	IncomingConnection_c	= 35
+	IncomingConnection_c	= 35,
+	ShellDamagePlayer_c		= 36
 }
 
 const string[] EventCallbacks = 
@@ -74,7 +75,8 @@ const string[] EventCallbacks =
 	"OnPlayerShootNPC",
 	"OnPlayerKeyAction",
 	"OnLogMessage",
-	"OnIncomingConnection"
+	"OnIncomingConnection",
+	"OnShellDamagePlayer"
 };
 
 // You can register a callback for an indefinite number of functions.
@@ -125,6 +127,7 @@ void RegisterAllCallbacks()
 	RegisterCallback(PlayerKeyAction_c);
 	RegisterCallback(OnLog_c);
 	RegisterCallback(IncomingConnection_c);
+	RegisterCallback(ShellDamagePlayer_c);
 }
 
 enum Dialog
@@ -151,7 +154,8 @@ enum DefaultModels
 	ZOMBIE_GUARD_MODEL	= 13,
 	SCP_999_MODEL		= 14,
 	SCP_860_MODEL		= 15,
-	GOC_MODEL			= 16
+	GOC_MODEL			= 16,
+	SCP_457_MODEL		= 17
 }
 
 enum DefaultModelTextures
@@ -185,7 +189,9 @@ enum DefaultModelTextures
 	MTF_SERGEANT_TEXTURE	 = 27,
 	SCP_096_BLOODY_TEXTURE	 = 28,
 	CHAOS_COMMANDER_TEXTURE	 = 29,
-	GOC_TEXTURE				 = 30
+	GOC_TEXTURE				 = 30,
+	SCP_939_EMISSIVE_TEXTURE = 31,
+	CHAOS_EMISSIVE_TEXTURE	 = 32
 }
 
 enum PlayerAnimations
@@ -257,7 +263,10 @@ enum DefaultAttaches
 	WEAPON_VIEWMODEL049_ATTACHMODEL = 34,
 	WEAPON_VIEWMODEL106_ATTACHMODEL = 35,
 	WEAPON_VIEWMODEL173_ATTACHMODEL = 36,
-	WEAPON_VIEWMODEL966_ATTACHMODEL = 37
+	WEAPON_VIEWMODEL966_ATTACHMODEL = 37,
+	WEAPON_REMINGTON_ATTACHMODEL = 38,
+	WEAPON_RPG_ATTACHMODEL = 39,
+	WEAPON_G36_ATTACHMODEL = 40
 }
 
 enum AttachesParts // Default reserved attach parts for SetAttach
@@ -289,7 +298,10 @@ enum DefaultWeapons
 	WEAPON_VIEWMODEL049 = 14,
 	WEAPON_VIEWMODEL106 = 15,
 	WEAPON_VIEWMODEL173 = 16,
-	WEAPON_VIEWMODEL966 = 17
+	WEAPON_VIEWMODEL966 = 17,
+	WEAPON_REMINGTON = 18,
+	WEAPON_RPG = 19,
+	WEAPON_G36 = 20
 }
 
 enum RoomIdentifiers
@@ -341,7 +353,7 @@ enum RoomIdentifiers
 	r_gate_a_entrance = 75, r_gate_a = 76, r_gate_b_entrance = 77, r_gate_b = 78,
 	r_room1_dead_end_ez = 79,
 	r_room1_lifts = 80,
-	r_room1_o5 = 81,
+	r_room1_cmr = 81,
 	r_room2_ez = 82, r_room2_2_ez = 83, r_room2_3_ez = 84, r_room2_4_ez = 85, r_room2_5_ez = 86, r_room2_6_ez = 87, r_room2_7_ez = 88,
 	r_room2_cafeteria = 89,
 	r_room2_ic = 90,
@@ -360,16 +372,18 @@ enum RoomIdentifiers
 	// ~ OTHERS
 	r_dimension_106 = 111, r_dimension_1499 = 112,
 	r_room2_closets_2 = 113,
-	//
 	r_gate_a_b = 114,
 	r_cont3_009 = 115,
 	r_room2_tesla_2_hcz = 116,
+	r_room4_gw = 117,
+	r_room4_3_lcz = 118,
+	r_cont2_457	= 119,
 	r_RESERVED = 300 // Rooms ID to 300 are reserved for future versions of UERM
 }
 
 enum EventIdentifiers
 {
-	// ~ LCZ
+	// LCZ
 	e_room1_dead_end_106 = 0,
 	e_room1_storage = 1,
 	e_cont1_005 = 2,
@@ -390,7 +404,7 @@ enum EventIdentifiers
 	e_room3_storage = 18,
 	e_cont3_372 = 19,
 	e_room4_ic = 20,
-	// ~ HCZ
+	// HCZ
 	e_cont1_035 = 21,
 	e_cont1_079 = 22,
 	e_cont1_106 = 23,
@@ -409,10 +423,10 @@ enum EventIdentifiers
 	e_cont2_409 = 37,
 	e_room3_hcz_duck = 38, e_room3_hcz_1048 = 39,
 	e_room3_2_hcz_guard = 40,
-	e_cont3_513 = 41,
+	e_room2_office_3 = 41,
 	e_cont3_966 = 42,
 	e_room4_2_hcz_d = 43,
-	// ~ EZ
+	// EZ
 	e_gate_b_entrance = 44, e_gate_b = 45,
 	e_gate_a_entrance = 46, e_gate_a = 47,
 	e_room1_dead_end_guard = 48,
@@ -427,7 +441,7 @@ enum EventIdentifiers
 	e_cont2_860_1 = 58,
 	e_room2c_ec = 59,
 	e_room3_2_ez_duck = 60,
-	// ~ OTHERS
+	// OTHERS
 	e_096_spawn = 61,
 	e_106_victim = 62,
 	e_106_victim_wall = 63,
@@ -442,24 +456,24 @@ enum EventIdentifiers
 	e_tesla = 72,
 	e_trick = 73, e_trick_item = 74,
 	e_dimension_106 = 75, e_dimension_1499 = 76,
+	// NEW VERSIONS
 	e_gate_a_b = 77,
 	e_cont3_009 = 78,
-	e_broken_tesla = 79
+	e_broken_tesla = 79,
 }
 
 enum ItemsIdentifiers
 {
-	// ~ [PAPER]
 	it_paper = 0,
 	it_oldpaper = 1,
 
 	it_origami = 2,
 
 	it_badge = 3,
-	it_oldbadge = 4,
+	it_badge2 = 4,
 
 	it_ticket = 5,
-	// ~ [SCPs AND VARIATIONS]
+	//[SCPs AND VARIATIONS]
 	it_scp005 = 6,
 	it_coarse005 = 7,
 	it_crystal005 = 8,
@@ -504,7 +518,7 @@ enum ItemsIdentifiers
 	it_scp2022 = 36,
 	it_scp2022pill = 37,
 
-	// ~ [MISC ITEMS]
+	// [MISC ITEMS]
 	it_helmet = 38,
 
 	it_vest = 39,
@@ -571,7 +585,7 @@ enum ItemsIdentifiers
 	it_veryfinesyringe = 87,
 	it_syringeinf = 88,
 
-	// ~ [KEYCARDS, HANDS, KEYS, CARDS, COINS]
+	// [KEYCARDS, HANDS, KEYS, CARDS, COINS]
 	it_key0 = 89,
 	it_key1 = 90,
 	it_key2 = 91,
@@ -598,7 +612,7 @@ enum ItemsIdentifiers
 
 	it_pizza = 108,
 
-	// ~ [GUNS]
+	//
 	it_m4 = 109,
 	it_glock = 110,
 	it_m60 = 111,
@@ -606,18 +620,22 @@ enum ItemsIdentifiers
 	it_mp5 = 113,
 	it_fs = 114,
 	it_krissvector = 115,
-	//
+
 	it_finehelmet = 116,
-	it_keyci = 117,
+	it_keyci	= 117,
 	it_p90 = 118,
 	it_mp7 = 119,
 	it_handcuffs = 120,
 	it_m134 = 121,
 	it_remington = 122,
+
 	it_fine513 = 123,
+
 	it_backpack = 124,
 	it_ammocrate = 125,
 	it_headphones = 126,
+	it_rpg = 127,
+	it_g36 = 128,
 	it_RESERVETO = 500 // Items ID to 500 are reserved for future versions of UERM
 }
 

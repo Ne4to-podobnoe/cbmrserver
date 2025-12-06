@@ -395,11 +395,11 @@ void UpdatePlayerRole(Player p)
 					{
 						if(seq.category == playerInfo.pClass.category) {
 							SetPlayerRole(p, seq.toAssign);
-							CategoryEscaped[seq.category]++;
+							if(CategoryEscaped.size() > 0) CategoryEscaped[seq.category]++;
 						}
 						else if(p.GetAttach(ATTACH_WRIST) == WEAPON_CUFFED_ATTACHMODEL) { // If cuffed
 							SetPlayerRole(p, seq.toAssign);
-							CuffedCategoryEscaped[seq.category]++;
+							if(CuffedCategoryEscaped.size() > 0) CuffedCategoryEscaped[seq.category]++;
 						}
 						break;
 					}
@@ -930,6 +930,7 @@ namespace PlayerCallbacks
 		RegisterCallback(PlayerUse914_c, OnUse914);
 		RegisterCallback(PlayerAttachesUpdate_c, OnAttachesUpdate);
 		RegisterCallback(PlayerClickGui_c, OnClickElement);
+		RegisterCallback(ShellDamagePlayer_c, OnShellDamagePlayer);
 	}
 	
 	void OnClickElement(Player player, GUIElement element)
@@ -1107,6 +1108,24 @@ namespace PlayerCallbacks
 							PlayPlayerAnimation(p, PLAYER_MODEL_ANIMATION_ZOMBIE_HIT, 1000);
 							break;
 						}
+						case ROLE_SCP_457:
+							audio.Play3DSound("SFX\\SCP\\294\\Burn.ogg", hit.GetEntity(), 8.0, 0.8);
+							if(hit.GetModel() != HAZMAT_MODEL) {
+								hit.SetInjuries(hit.GetInjuries() + frand(playerInfo.pClass.damage, playerInfo.pClass.damage * 1.1));
+								if(hit.GetInjuries() >= 8.0) KillPlayer(hit, p);
+							}
+							else {
+								for(int i = 0; i < MAX_PLAYER_INVENTORY; i++)
+								{
+									Items it = hit.GetInventory(i);
+									if(it != NULL && (it.GetTemplateIndex() == it_hazmatsuit || it.GetTemplateIndex() == it_finehazmatsuit || it.GetTemplateIndex() == it_veryfinehazmatsuit || it.GetTemplateIndex() == it_hazmatsuit148)) { 
+										it.Remove();
+										hit.SendMessage("SCP-457 burned off your hazmat suit");
+										break;
+									}
+								}
+							}
+							break;
 						case ROLE_SCP_0492_GUARD:
 						case ROLE_SCP_966:
 						case ROLE_SCP_939:
@@ -1258,6 +1277,14 @@ namespace PlayerCallbacks
 			else KillPlayer(dest, src, headshot ? "in head" : "");
 		}
 
+		return false;
+	}
+	bool OnShellDamagePlayer(Shell shell, Player dest, float damage)
+	{
+		info_Player@ destInfo = GetPlayerInfo(dest);
+		damage *= (@destInfo.pClass != null) ? destInfo.pClass.damagemultiplier : 1.0;
+		dest.SetInjuries(dest.GetInjuries() + damage);
+		if(dest.GetInjuries() >= 8.0) KillPlayer(dest, shell.GetShooter(), "by explosion");
 		return false;
 	}
 	bool OnExploreCorpse(Player p, Corpse c)

@@ -27,7 +27,9 @@ enum Roles
 	ROLE_CHAOS_MEDIC,
 	ROLE_SCP_860,
 	ROLE_GOC,
-	ROLE_GHOST
+	ROLE_GHOST,
+	ROLE_CHAOS_GRENADER,
+	ROLE_SCP_457
 };
 
 enum Categories
@@ -377,7 +379,7 @@ namespace Roles
 			Spawnpoint(vector3(frand(9300.0, 10000.0), 50, frand(-5300.0, -4600.0)), 0.0, 0.0, gate_a_b),
 			Spawnpoint(vector3(frand(9300.0, 10000.0), 50, frand(-5300.0, -4600.0)), 0.0, 0.0, gate_a_b),
 			Spawnpoint(vector3(frand(9300.0, 10000.0), 50, frand(-5300.0, -4600.0)), 0.0, 0.0, gate_a_b)
-		}, {"M4A1", "Five-Seven", "Level 5 Key Card", "Radio Transceiver", "Compact First Aid Kit;Ballistic Helmet;Heavy Ballistic Vest;Handcuffs;Ammo crate"});
+		}, {"M4A1", "Five-Seven", "Level 5 Key Card", "Radio Transceiver", "Compact First Aid Kit;Ballistic Helmet;Heavy Ballistic Vest;Handcuffs;Ammo crate;Night Vision Goggles;9V Battery"});
 		
 		Role@ MTFCom = Role(ROLE_MTF_COMMANDER, "Mobile Task Force Captain", CATEGORY_SECURITY, PlayerModel(MTF_MODEL, {MTF_COMMANDER_TEXTURE}), Color(20, 20, 200), "Find and save Scientists. Arrest or neutralize Class D. Command your subordinates.",
 		{ 
@@ -401,7 +403,7 @@ namespace Roles
 			Spawnpoint(vector3(frand(9300.0, 10000.0), 50, frand(-5300.0, -4600.0)), 0.0, 0.0, gate_a_b),
 			Spawnpoint(vector3(frand(9300.0, 10000.0), 50, frand(-5300.0, -4600.0)), 0.0, 0.0, gate_a_b),
 			Spawnpoint(vector3(frand(9300.0, 10000.0), 50, frand(-5300.0, -4600.0)), 0.0, 0.0, gate_a_b)
-		}, {"M4A1", "Five-Seven", "Key Card Omni", "Radio Transceiver", "Compact First Aid Kit;Ballistic Helmet;Heavy Ballistic Vest;Handcuffs;Ammo crate"});
+		}, {"M4A1", "Five-Seven", "Key Card Omni", "Radio Transceiver", "Compact First Aid Kit;Ballistic Helmet;Heavy Ballistic Vest;Handcuffs;Ammo crate;Night Vision Goggles;9V Battery"});
 		
 		Role@ Chaos = Role(ROLE_CHAOS, "Chaos Insurgency Recruit", CATEGORY_INMATE, PlayerModel(CHAOS_MODEL), Color(26, 64, 1), "Find and save Class D. Arrest or neutralize research staff.",
 		{ 
@@ -421,7 +423,7 @@ namespace Roles
 			Spawnpoint(vector3(frand(-4000.0, -4500.0), 78, frand(10400.0, 11200.0)), 0.0, 180.0, gate_a_b),
 			Spawnpoint(vector3(frand(-4000.0, -4500.0), 78, frand(10400.0, 11200.0)), 0.0, 180.0, gate_a_b),
 			Spawnpoint(vector3(frand(-4000.0, -4500.0), 78, frand(10400.0, 11200.0)), 0.0, 180.0, gate_a_b)
-		}, {"SR-556", "Glock", "Hacking Device", "Radio Transceiver", "Compact First Aid Kit;Ballistic Helmet;Ballistic Vest;Handcuffs;Ammo crate"});
+		}, {"G36", "Glock", "Hacking Device", "Radio Transceiver", "Compact First Aid Kit;Ballistic Helmet;Ballistic Vest;Handcuffs;Ammo crate"});
 		
 		Role@ ChaosMed = Role(ROLE_CHAOS_MEDIC, "Chaos Insurgency Medic", CATEGORY_INMATE, PlayerModel(CHAOS_MODEL), Color(26, 64, 1), "Find and save Class D. Arrest or neutralize research staff. Heal your teammates",
 		{ 
@@ -463,6 +465,26 @@ namespace Roles
 			Spawnpoint(vector3(frand(-4000.0, -4500.0), 78, frand(10400.0, 11200.0)), 0.0, 180.0, gate_a_b)
 		}, {"M60", "Glock", "Hacking Device", "Radio Transceiver", "Compact First Aid Kit;Heavy Ballistic Helmet;Heavy Ballistic Vest;Handcuffs;Ammo crate"});
 		
+		Role@ ChaosGren = Role(ROLE_CHAOS_GRENADER, "Chaos Insurgency Grenader", CATEGORY_INMATE, PlayerModel(CHAOS_MODEL, {CHAOS_EMISSIVE_TEXTURE}), Color(26, 64, 1), "Find and save Class D. Arrest or neutralize research staff.",
+		{ 
+			Spawnpoint(vector3(frand(-4000.0, -4500.0), -1185, frand(6300.0, 5300.0)), 0.0, -90.0, gate_a),
+			Spawnpoint(vector3(frand(-4000.0, -4500.0), -1185, frand(6300.0, 5300.0)), 0.0, -90.0, gate_a),
+			Spawnpoint(vector3(frand(-4000.0, -4500.0), -1185, frand(6300.0, 5300.0)), 0.0, -90.0, gate_a),
+			Spawnpoint(vector3(frand(-4000.0, -4500.0), -1185, frand(6300.0, 5300.0)), 0.0, -90.0, gate_a),
+			Spawnpoint(vector3(frand(-4000.0, -4500.0), -1185, frand(6300.0, 5300.0)), 0.0, -90.0, gate_a),
+			Spawnpoint(vector3(frand(-4000.0, -4500.0), -1185, frand(6300.0, 5300.0)), 0.0, -90.0, gate_a),
+			Spawnpoint(vector3(frand(-4000.0, -4500.0), -1185, frand(6300.0, 5300.0)), 0.0, -90.0, gate_a),
+			Spawnpoint(vector3(frand(-4000.0, -4500.0), -1185, frand(6300.0, 5300.0)), 0.0, -90.0, gate_a),
+			Spawnpoint(vector3(frand(-4000.0, -4500.0), 78, frand(10400.0, 11200.0)), 0.0, 180.0, gate_a_b),
+			Spawnpoint(vector3(frand(-4000.0, -4500.0), 78, frand(10400.0, 11200.0)), 0.0, 180.0, gate_a_b),
+			Spawnpoint(vector3(frand(-4000.0, -4500.0), 78, frand(10400.0, 11200.0)), 0.0, 180.0, gate_a_b),
+			Spawnpoint(vector3(frand(-4000.0, -4500.0), 78, frand(10400.0, 11200.0)), 0.0, 180.0, gate_a_b),
+			Spawnpoint(vector3(frand(-4000.0, -4500.0), 78, frand(10400.0, 11200.0)), 0.0, 180.0, gate_a_b),
+			Spawnpoint(vector3(frand(-4000.0, -4500.0), 78, frand(10400.0, 11200.0)), 0.0, 180.0, gate_a_b),
+			Spawnpoint(vector3(frand(-4000.0, -4500.0), 78, frand(10400.0, 11200.0)), 0.0, 180.0, gate_a_b),
+			Spawnpoint(vector3(frand(-4000.0, -4500.0), 78, frand(10400.0, 11200.0)), 0.0, 180.0, gate_a_b)
+		}, {"RPG-7", "Glock", "Hacking Device", "Radio Transceiver", "Compact First Aid Kit;Heavy Ballistic Helmet;Heavy Ballistic Vest;Handcuffs;Ammo crate"});
+		
 		Role@ ChaosCom = Role(ROLE_CHAOS_COMMANDER, "Chaos Insurgency Captain", CATEGORY_INMATE, PlayerModel(CHAOS_MODEL), Color(26, 64, 1), "Find and save Class D. Arrest or neutralize research staff. Command your subordinates.",
 		{ 
 			Spawnpoint(vector3(frand(-4000.0, -4500.0), -1185, frand(6300.0, 5300.0)), 0.0, -90.0, gate_a),
@@ -481,7 +503,7 @@ namespace Roles
 			Spawnpoint(vector3(frand(-4000.0, -4500.0), 78, frand(10400.0, 11200.0)), 0.0, 180.0, gate_a_b),
 			Spawnpoint(vector3(frand(-4000.0, -4500.0), 78, frand(10400.0, 11200.0)), 0.0, 180.0, gate_a_b),
 			Spawnpoint(vector3(frand(-4000.0, -4500.0), 78, frand(10400.0, 11200.0)), 0.0, 180.0, gate_a_b)
-		}, {"M4A1", "Glock", "Hacking Device", "Radio Transceiver", "Compact First Aid Kit;Ballistic Helmet;Heavy Ballistic Vest;Handcuffs;Ammo crate"});
+		}, {"SR-556", "Glock", "Hacking Device", "Radio Transceiver", "Compact First Aid Kit;Ballistic Helmet;Heavy Ballistic Vest;Handcuffs;Ammo crate"});
 		
 		Role@ GOC = Role(ROLE_GOC, "Global Occult Coalition", CATEGORY_GOC, PlayerModel(GOC_MODEL, {GOC_TEXTURE}), Color(89, 148, 229), "Eliminate everyone in the complex.",
 		{ 
@@ -516,7 +538,7 @@ namespace Roles
 			Spawnpoint(vector3(-132, 83, -704), 0.0, 0.0, world.GetRoomByIdentifier(r_cont1_106))
 		}, {}, true, 4.0, 8750, 1.5, true);
 		
-		Role@ scp939 = Role(ROLE_SCP_939, "SCP-939", CATEGORY_ANOMALY, PlayerModel(SCP_939_MODEL), Color(200, 0, 0), "Kill everyone. Wait 45 seconds to start.",
+		Role@ scp939 = Role(ROLE_SCP_939, "SCP-939", CATEGORY_ANOMALY, PlayerModel(SCP_939_MODEL, {-1, -1, SCP_939_EMISSIVE_TEXTURE}), Color(200, 0, 0), "Kill everyone. Wait 45 seconds to start.",
 		{
 			Spawnpoint(vector3(567.0, -5550.0, 5176.0), 0.0, 0.0, room3_storage),
 			Spawnpoint(vector3(3980.0, -5550.0, -968.0), 0.0, 0.0, room3_storage),
@@ -538,6 +560,11 @@ namespace Roles
 		{
 			Spawnpoint(vector3(0, 80.0, 0), 0.0, 0.0, world.GetRoomByIdentifier(r_cont2_860_1))
 		}, {}, true, 1.2, 6250, 0.75, true);
+		
+		Role@ scp457 = Role(ROLE_SCP_457, "SCP-457", CATEGORY_ANOMALY, PlayerModel(SCP_457_MODEL, {CORPSE_CLASS_D_TEXTURE}), Color(200, 0, 0), "Kill everyone. Wait 45 seconds to start.",
+		{
+			Spawnpoint(vector3(8198.9, -4950.6, 1574.5), 0.0, -128.0, world.GetRoomByIdentifier(r_cont2_457))
+		}, {}, true, 4.0, 4000, 1.5, true);
 		
 		Role@ scp0492 = Role(ROLE_SCP_0492, "SCP-049-2", CATEGORY_ANOMALY, PlayerModel(ZOMBIE_MODEL, {CLASS_D_ZOMBIE_TEXTURE}), Color(200, 0, 0), "Kill everyone. Listen to SCP-049", {}, {}, false, 1.0, 250, 0.75, false);
 		Role@ scp0492_guard = Role(ROLE_SCP_0492_GUARD, "SCP-049-2", CATEGORY_ANOMALY, PlayerModel(ZOMBIE_GUARD_MODEL), Color(200, 0, 0), "Kill everyone. Listen to SCP-049", {}, {}, false, 1.0, 250, 0.75, false);
@@ -621,6 +648,7 @@ namespace Roles
 		Chaos.SetRadio(rand(10000, 80000));
 		ChaosCom.SetRadio(Chaos.radioChannel);
 		ChaosSer.SetRadio(Chaos.radioChannel);
+		ChaosGren.SetRadio(Chaos.radioChannel);
 		ChaosMed.SetRadio(Chaos.radioChannel);
 		
 		GOC.SetRadio(rand(10000, 80000));
@@ -637,6 +665,7 @@ namespace Roles
 		Add(Chaos);
 		Add(ChaosMed);
 		Add(ChaosSer);
+		Add(ChaosGren);
 		Add(ChaosCom);
 		Add(scp173);
 		Add(scp049);
@@ -649,6 +678,7 @@ namespace Roles
 		Add(scp035);
 		Add(scp999);
 		Add(scp860);
+		Add(scp457);
 		Add(GOC);
 		Add(Ghost);
 		

@@ -303,7 +303,7 @@ namespace Round
 						case ROLE_MTF: case ROLE_MTF_COMMANDER: case ROLE_MTF_MEDIC: case ROLE_MTF_SERGEANT: { MTFUnits++; break; }
 						case ROLE_GUARD: { Guards++; break; }
 						case ROLE_SCIENTIST: case ROLE_JANITOR: { Scientists++; break; }
-						case ROLE_CHAOS: case ROLE_CHAOS_COMMANDER: case ROLE_CHAOS_GUNNER: case ROLE_CHAOS_MEDIC: { Chaoses++; break; }
+						case ROLE_CHAOS: case ROLE_CHAOS_COMMANDER: case ROLE_CHAOS_GUNNER: case ROLE_CHAOS_MEDIC: case ROLE_CHAOS_GRENADER: { Chaoses++; break; }
 						case ROLE_CLASS_D: { ClassDs++; break; }
 						case ROLE_GOC: { GOCs++; break; }
 					}
@@ -427,7 +427,10 @@ namespace Round
 			
 			array<Role@> assigners;
 			
-			if(ArriveSide) assigners = { Roles::Find(ROLE_CHAOS_GUNNER), Roles::Find(ROLE_CHAOS_MEDIC), Roles::Find(ROLE_CHAOS) };
+			if(ArriveSide) {
+				if(rand(0, 100) <= 10) assigners = { Roles::Find(ROLE_CHAOS_GRENADER), Roles::Find(ROLE_CHAOS_GUNNER), Roles::Find(ROLE_CHAOS_MEDIC), Roles::Find(ROLE_CHAOS) };
+				else assigners = { Roles::Find(ROLE_CHAOS_GUNNER), Roles::Find(ROLE_CHAOS_MEDIC), Roles::Find(ROLE_CHAOS) };
+			}
 			else assigners = { Roles::Find(ROLE_MTF_COMMANDER), Roles::Find(ROLE_MTF_SERGEANT), Roles::Find(ROLE_MTF_MEDIC), Roles::Find(ROLE_MTF) };
 			
 			int halfCount = 15;
@@ -510,7 +513,9 @@ namespace Round
 		CreateItemPoint(items, world.GetRoomByIdentifier(r_room2_2_ez), vector3(800.0, -48.0, 368), rand(0, 1) == 0 ? "MP5" : "KRISS Vector");
 		CreateItemPoint(items, world.GetRoomByIdentifier(r_cont2c_096), vector3(-1169.0, -563.0, 721), rand(0, 3) == 0 ? "Level 3 Key Card" : "Remington");
 		CreateItemPoint(items, world.GetRoomByIdentifier(r_cont2c_096), vector3(14.0, -390, 1437), rand(0, 2) == 0 ? "Level 4 Key Card" : (rand(0, 1) == 0 ? "MP5" : "KRISS Vector"));
-		
+		CreateItemPoint(items, world.GetRoomByIdentifier(r_cont1_895), vector3(-656.0, 150.0, -271), "Level 3 Key Card");
+		CreateItemPoint(items, world.GetRoomByIdentifier(r_cont1_895), vector3(300.0, -1464.0, 2327), "Unknown Note");
+
 		world.RaycastItems();
 	}
 	
