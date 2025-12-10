@@ -512,7 +512,7 @@ void SetProximityBlinking(Player p, float time)
 	}
 }
 
-bool IsPlayerFriend(Player src, Player dest, Role@ tmp = null)
+bool IsPlayerFriend(Player src, Player dest)
 {
 	info_Player@ playerInfosrc = GetPlayerInfo(src);
 	info_Player@ playerInfodest = GetPlayerInfo(dest);
@@ -520,7 +520,7 @@ bool IsPlayerFriend(Player src, Player dest, Role@ tmp = null)
 	return playerInfosrc.pClass.IsAFriend(playerInfodest.pClass);
 }
 
-bool IsPlayerFriend(Player src, Role@ role, Role@ tmp = null)
+bool IsPlayerFriend(Player src, Role@ role)
 {
 	info_Player@ playerInfosrc = GetPlayerInfo(src);
 	if(@playerInfosrc.pClass == null) return false;
