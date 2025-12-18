@@ -826,7 +826,7 @@ namespace PlayerTimers
 		GetPlayerInfo(p).cuffElement = NULL;
 		gui.Remove();
 		
-		if(hit == NULL || p.GetEntity().Distance(hit.GetEntity()) > 1.5)
+		if(hit == NULL || p.GetEntity().Distance(hit.GetEntity()) > 1.5 || hit.IsDead())
 		{
 			p.SendMessage("You are too far away from the player.");
 			return;
@@ -868,7 +868,7 @@ namespace PlayerTimers
 		
 		if(p.GetAttach(ATTACH_WEAPON) != WEAPON_CUFFS_ATTACHMODEL) return;
 		
-		if(hit == NULL || p.GetEntity().Distance(hit.GetEntity()) > 1.5)
+		if(hit == NULL || p.GetEntity().Distance(hit.GetEntity()) > 1.5 || hit.IsDead())
 		{
 			p.SendMessage("You are too far away from the player.");
 			return;
@@ -1281,6 +1281,7 @@ namespace PlayerCallbacks
 	}
 	bool OnShellDamagePlayer(Shell shell, Player dest, float damage)
 	{
+		if(shell.GetShooter() == NULL || (IsPlayerFriend(shell.GetShooter(), dest) && !Round::GetSettings().friendlyfire)) return false;
 		info_Player@ destInfo = GetPlayerInfo(dest);
 		damage *= (@destInfo.pClass != null) ? destInfo.pClass.damagemultiplier : 1.0;
 		dest.SetInjuries(dest.GetInjuries() + damage);
