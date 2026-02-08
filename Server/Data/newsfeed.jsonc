@@ -5,6 +5,11 @@
 			"image": "GFX/Menu/Screens/intro.png",
 			"text": "2.0 -             Behind The        Veil update!",
 			"url": "https://scpcbmr.42web.io/Behind%20The%20Veil.html"
+		},
+		{
+			"image": "GFX/Menu/Screens/173window.png",
+			"text": "2.1 - Refracted  Reality update!",
+			"url": "https://scpcbmr.42web.io/RefractedReality/refractedreality.html"
 		}
 	]
 }

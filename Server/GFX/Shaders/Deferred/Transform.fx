@@ -6,10 +6,10 @@
 //	YOU CAN CONTACT US BY MAILING US ON EUCLIDLABSSTUDIO@GMAIL.COM.
 //--------------------------------------------------------------------------
 
-bool Skinned			: SKINNED;
-float4x3 BonesMatrices[MAX_BONES] : BONE_MATRICES;
+bool Skinned						: SKINNED;
+float4x3 BonesMatrices[MAX_BONES] 	: BONE_MATRICES;
 
-float4x3 GetSkinTransform(float4 indices, float4 weights)
+inline float4x3 GetSkinTransform(uint4 indices, float4 weights)
 {
 	int	Matrices[4]        	= {indices.x,indices.y,indices.z,indices.w};
     float BlendWeights[4] 	= (float[4])weights;
@@ -25,5 +25,15 @@ float4x3 GetSkinTransform(float4 indices, float4 weights)
 		Mat += BonesMatrices[ind] * BlendWeights[i];
 	}
 	
+	return Mat;
+}
+
+inline float4x3 GetInstanceTransform(float4 M1, float4 M2, float4 M3)
+{
+	float4x3 Mat;
+	Mat[0] = float3(M1.x, M2.x, M3.x);
+	Mat[1] = float3(M1.y, M2.y, M3.y);
+	Mat[2] = float3(M1.z, M2.z, M3.z);
+	Mat[3] = float3(M1.w, M2.w, M3.w);
 	return Mat;
 }

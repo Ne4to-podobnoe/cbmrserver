@@ -8,15 +8,20 @@
 
 #include "..\Deferred\Tools.fx"
 
-sampler ColorMap : register(s0) = sampler_state
-{
-    MinFilter = None;
-    MagFilter = None;
-    MipFilter = None;
-    AddressU = Clamp;
-    AddressV = Clamp;
-    AddressW = Clamp;
-};
+#ifdef D3D11
+	texture2D tColorMap : register(t0);
+	sampler ColorMap = sampler_state { Filter = MIN_MAG_MIP_LINEAR; AddressU = Clamp; AddressV = Clamp; };
+#else
+	sampler ColorMap : register(s0) = sampler_state
+	{
+		MinFilter = None;
+		MagFilter = None;
+		MipFilter = None;
+		AddressU = Clamp;
+		AddressV = Clamp;
+		AddressW = Clamp;
+	};
+#endif
 
 struct PS_INPUT
 {
@@ -35,9 +40,9 @@ PS_INPUT VertexProcess(VS_INPUT input)
 // -------------------------- Parameters ------------------------------
 
 const float ExposureStops = 0.0;
-const float Offset        = 0.0040;
+const float Offset        = -0.0090;
 const float Hue           = 0.0;
-const float Saturation    = 1.2;
+const float Saturation    = 1.4;
 
 static const float3x3 HueMatrix =
 {
@@ -81,10 +86,13 @@ technique Main
 {
 	pass p0
 	{
-		VertexShader = compile vs_3_0 VertexProcess();
-		PixelShader = compile ps_3_0 ProcessColorCorrection();
-		ZWriteEnable = false;
-		ClipPlaneEnable = false;
-		Lighting = false;
+		Vertex(VertexProcess);
+		Pixel(ProcessColorCorrection);
+			
+		#ifndef D3D11
+			ZWriteEnable = false;
+			ClipPlaneEnable = false;
+			Lighting = false;
+		#endif
 	}
 }

@@ -8,15 +8,22 @@
 
 #include "..\Deferred\Tools.fx"
 
-sampler ColorMap : register(s0) = sampler_state
-{
-    MinFilter = None;
-    MagFilter = None;
-	MipFilter = None;
-	AddressU = Clamp;
-	AddressV = Clamp;
-	AddressW = Clamp;
-};
+const float PresentMultiply = 1.0f;
+
+#ifdef D3D11
+	texture2D tColorMap : register(t0);
+	sampler ColorMap = sampler_state { Filter = MIN_MAG_MIP_LINEAR; AddressU = Clamp; AddressV = Clamp; };
+#else
+	sampler ColorMap : register(s0) = sampler_state
+	{
+		MinFilter = None;
+		MagFilter = None;
+		MipFilter = None;
+		AddressU = Clamp;
+		AddressV = Clamp;
+		AddressW = Clamp;
+	};
+#endif
 
 struct PS_INPUT
 { 
@@ -34,17 +41,40 @@ PS_INPUT VertexProcess(VS_INPUT input)
 
 float4 Present(PS_INPUT input) : COLOR
 {
-    return Sample2DLod0(ColorMap, input.TexCoord);
+    return float4(Sample2DLod0(ColorMap, input.TexCoord).rgb, 1.0);
+}
+
+float4 PresentMul(PS_INPUT input) : COLOR
+{
+    return float4(Sample2DLod0(ColorMap, input.TexCoord).rgb * PresentMultiply, 1.0);
 }
 
 technique Main
 {
 	pass p0
 	{
-		VertexShader = compile vs_3_0 VertexProcess();
-		PixelShader = compile ps_3_0 Present();
+		Vertex(VertexProcess);
+		Pixel(Present);
+		
+		#ifndef D3D11
 		ZWriteEnable = false;
 		ClipPlaneEnable = false;
 		Lighting = false;
+		#endif
+	}
+}
+
+technique Mul
+{
+	pass p0
+	{
+		Vertex(VertexProcess);
+		Pixel(PresentMul);
+		
+		#ifndef D3D11
+		ZWriteEnable = false;
+		ClipPlaneEnable = false;
+		Lighting = false;
+		#endif
 	}
 }

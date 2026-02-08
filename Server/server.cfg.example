@@ -54,7 +54,7 @@ script
 // improvedgates - Enable doubled gates
 // mapsize - 6-28 is allowed. 21 is default. (small - 12) (medium - 16) (big - 22) With small map sizes it is very possible for important rooms to not appear, so keep this in mind when shrinking the map.
 // masterserver - Port for Steam master server. (65535 using main server port, so its recommended to not change this). Set 0 to disable
-// description - available formats: &colr[r g b], &col[hex], &r or &w - white, &hyperlink[link,underlined]: Example: &colr[255 0 0]Server. &hyperlink[google.com,1]CLICKABLE
+// description - available formats: &c[r g b], &c[hex], &r or &w - white, &i[imagefilename], &hl[link,underlined]: Example: &c[255 0 0]Ser&c[FF0000FF]ver. &hl[https://google.com,1]CLICKABLE
 // allowjump - Allow jumps
 // fastslots - Enable hot slots
 // gravity - Gravity multiplier. Default is 1.0

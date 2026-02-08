@@ -35,7 +35,8 @@ enum Callbacks
 	PlayerKeyAction_c		= 33,
 	OnLog_c					= 34,
 	IncomingConnection_c	= 35,
-	ShellDamagePlayer_c		= 36
+	ShellDamagePlayer_c		= 36,
+	ShellExploded_c			= 37
 }
 
 const string[] EventCallbacks = 
@@ -76,7 +77,8 @@ const string[] EventCallbacks =
 	"OnPlayerKeyAction",
 	"OnLogMessage",
 	"OnIncomingConnection",
-	"OnShellDamagePlayer"
+	"OnShellDamagePlayer",
+	"OnShellExploded"
 };
 
 // You can register a callback for an indefinite number of functions.
@@ -128,6 +130,7 @@ void RegisterAllCallbacks()
 	RegisterCallback(OnLog_c);
 	RegisterCallback(IncomingConnection_c);
 	RegisterCallback(ShellDamagePlayer_c);
+	RegisterCallback(ShellExploded_c);
 }
 
 enum Dialog
@@ -277,7 +280,10 @@ enum AttachesParts // Default reserved attach parts for SetAttach
 	ATTACH_NECK 	= 3,
 	ATTACH_FINGER 	= 4,
 	ATTACH_WEAPON	= 5,
-	ATTACH_WRIST	= 6
+	ATTACH_WRIST	= 6,
+	ATTACH_CUSTOM1	= 7,
+	ATTACH_CUSTOM2	= 8,
+	ATTACH_CUSTOM3	= 9
 }
 
 enum DefaultWeapons
@@ -378,7 +384,7 @@ enum RoomIdentifiers
 	r_room4_gw = 117,
 	r_room4_3_lcz = 118,
 	r_cont2_457	= 119,
-	r_RESERVED = 300 // Rooms ID to 300 are reserved for future versions of UERM
+	r_RESERVED = 300 // Rooms ID to 300 are reserved for future versions of CB2
 }
 
 enum EventIdentifiers
@@ -636,7 +642,7 @@ enum ItemsIdentifiers
 	it_headphones = 126,
 	it_rpg = 127,
 	it_g36 = 128,
-	it_RESERVETO = 500 // Items ID to 500 are reserved for future versions of UERM
+	it_RESERVETO = 500 // Items ID to 500 are reserved for future versions of CB2
 }
 
 enum DoorTypes
@@ -744,7 +750,7 @@ enum KeysTypes
 	KEY_F4 = 0x80,
 	KEY_LMB = 0x100,
 	KEY_RMB = 0x200,
-	KEY_MMB = 0x400,
+	KEY_ALT = 0x400,
 	KEY_F = 0x800,
 	KEY_G = 0x1000,
 	KEY_H = 0x2000,
@@ -765,7 +771,7 @@ enum KeysTypes
 	KEY_Z = 0x10000000,
 	KEY_X = 0x20000000,
 	KEY_JUMP = 0x40000000,
-	KEY_RSHIFT = -2147483648
+	KEY_SPRINT = int(0x80000000)
 }
 
 bool IsKeyPressed(int key, int newmask, int prevmask) { return (newmask & key) != 0 && (prevmask & key) == 0; }
