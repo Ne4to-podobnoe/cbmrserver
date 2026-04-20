@@ -1015,6 +1015,8 @@ namespace PlayerCallbacks
 						audio.Play3DSound("SFX\\SCP\\914\\PlayerDeath.ogg", player, 15.0, 0.8);
 						player.Kill(true);
 					}
+
+					return false;
 				}
 				
 				if(command == "panel")
