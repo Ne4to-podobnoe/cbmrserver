@@ -210,10 +210,11 @@ namespace Round
 		if(IsStarted()) {
 			for(int i = 0; i < connPlayers.size(); i++) SetPlayerRole(connPlayers[i], null);
 			
-			for(int i = 0; i < MAX_OBJECTS; i++) {
-				if(world.GetObject(i) != NULL) world.GetObject(i).Remove();
+			for(auto it = Object::Iterator(); it != NULL; it++)
+			{
+				it.Get().Remove();
 			}
-			
+
 			Lobby::Load();
 		}
 	}
@@ -486,10 +487,10 @@ namespace Round
 	void SpawnItems()
 	{
 		array<Items>@ items = array<Items>();
-		for(int i = 1; i <= MAX_ITEMS; i++) {
-			if(world.GetItem(i) != NULL) items.push_back(world.GetItem(i));
+		for(auto it = Items::Iterator(); it != NULL; it++) {
+			items.push_back(it.Get());
 		}
-		
+
 		// LCZ
 		
 		bool has914 = (world.GetRoomByIdentifier(r_cont1_914) != NULL);

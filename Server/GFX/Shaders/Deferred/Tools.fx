@@ -6,7 +6,8 @@
 //	YOU CAN CONTACT US BY MAILING US ON EUCLIDLABSSTUDIO@GMAIL.COM.
 //--------------------------------------------------------------------------
 
-float2 ScreenSize 		: SCREEN_SIZE;
+float4 ViewportSize		: VIEWPORT_SIZE;
+static const float2 ScreenSize = ViewportSize.zw;
 
 #ifdef D3D11
 #define Sample2D(tex, uv) t##tex.Sample(tex, uv)
@@ -22,6 +23,8 @@ float2 ScreenSize 		: SCREEN_SIZE;
 #define technique technique11
 #define Vertex(VS) VertexShader = compile vs_5_0 VS()
 #define Pixel(PS) PixelShader = compile ps_5_0 PS()
+#define OUTPUT(n) SV_Target##n
+#define OUT_POSITION SV_Position
 static const float2 halfPixel = float2(0.0, 0.0);
 #else
 #define Sample2D(t, uv) tex2D(t, uv)
@@ -32,9 +35,11 @@ static const float2 halfPixel = float2(0.0, 0.0);
 #define Sample2DLod0(t, uv) tex2Dlod(t, float4(uv, 0.0, 0.0))
 #define Sample2DProjLod0(t, uv) tex2Dlod(t, float4(uv.xy / uv.w, 0.0, 0.0))
 #define SampleCubeLOD(t, uv) texCUBElod(t, uv)
-static const float2 halfPixel = float2(0.5 / ScreenSize.x, 0.5 / ScreenSize.y);
+static const float2 halfPixel = 0.5 / ScreenSize;
 #define Vertex(VS) VertexShader = compile vs_3_0 VS()
 #define Pixel(PS) PixelShader = compile ps_3_0 PS()
+#define OUTPUT(n) COLOR##n
+#define OUT_POSITION POSITION
 #endif
 
 float4x3 World 			: MATRIX_WORLD; 
@@ -103,6 +108,32 @@ inline float3 Tonemap(float3 x)
 	return x / (x + 1.0);
 }
 
+inline float3 LinearToSRGB(float3 color)
+{
+	color = saturate(color);
+	
+    float3 sq1 = sqrt(color);
+    float3 sq2 = sqrt(sq1);
+    float3 sq3 = sqrt(sq2);
+
+    return 0.662002687f * sq1 + 0.684122060f * sq2 - 0.323583601f * sq3 - 0.0225411470f * color;
+}
+
+inline float4 LinearToSRGB(float4 value)
+{
+    return float4(LinearToSRGB(value.rgb), value.a);
+}
+
+inline float3 SRGBToLinear(float3 value)
+{
+    return value * (value * (value * 0.305306011f + 0.682171111f) + 0.012522878f);
+}
+
+inline float4 SRGBToLinear(float4 value)
+{
+    return float4(SRGBToLinear(value.rgb), value.a);
+}
+
 inline float4 ShadeDither(in float4 result, in float4 ScreenPosition)
 {
 	result.rgb = ApplyDithering(result.rgb, GetScreenTexCoords(ScreenPosition));
@@ -138,7 +169,7 @@ float InterleavedGradientNoise(float2 screenPos)
 
 inline float3 GetBloomLuma(float3 color, float sensitivity)
 {
-	float luma = GetIntensity(color);
+	float luma = GetIntensity(LinearToSRGB(Tonemap(color)));
 
 	color    = pow(abs(color), sensitivity);
 	color /= max(luma, 0.001);
@@ -151,42 +182,107 @@ inline float3 GetBloomLuma(float3 color, float sensitivity)
 }
 
 #ifdef D3D11
-inline float2 ParallaxOcclusionMapping(Texture2D tHeightMap, SamplerState HeightMap, float2 texCoords, float3 viewDir, float VdotN)
+inline float2 ParallaxOcclusionMapping(Texture2D tHeightMap, SamplerState HeightMap, float2 texCoords, float3 viewDir, float VdotN, float2 dx, float2 dy)
 #else
-inline float2 ParallaxOcclusionMapping(sampler HeightMap, float2 texCoords, float3 viewDir, float VdotN)
+inline float2 ParallaxOcclusionMapping(sampler HeightMap, float2 texCoords, float3 viewDir, float VdotN, float2 dx, float2 dy)
 #endif
 {
-	const float parallaxScale = 0.03;
-    float2 parallaxDir = normalize(viewDir.xy);
-    float parallaxLen = length(viewDir.xy) / abs(viewDir.z) * parallaxScale;
-    
-    int steps = (int)lerp(32, 8, abs(VdotN));
-    float stepSize = 1.0 / steps;
-    float2 texStep = parallaxDir * parallaxLen * stepSize;
-    float2 currentTex = texCoords;
-    float currBound = 1.0;
-    
-    float prevHeight = 1.0;
-    float2 pt1 = 0, pt2 = 0;
-    
+	const float parallaxScale = 0.025;
+	
+	const float minZ = 0.05; 
+    float2 parallaxDir = (viewDir.xy / max(abs(viewDir.z), minZ)) * parallaxScale;
+
+	int steps = (int)lerp(48, 8, abs(VdotN));
+	float stepSize = 1.0 / (float)steps;
+	float2 texStep = parallaxDir * stepSize;
+
+	float2 currentTex = texCoords;
+	float currBound = 1.0;
+	float prevHeight = 1.0;
 	float height = 1.0;
 
-    [loop]
-    for(int i = 0; i < steps; i++)
-    {
-        height = Sample2DLod0(HeightMap, currentTex).r;
+	[loop]
+	for(int i = 0; i < steps; i++)
+	{
+		height = Sample2DGrad(HeightMap, currentTex, dx, dy).r;
 
-        if(height > currBound) break;
-        
-        prevHeight = height;
-        currBound -= stepSize;
-        currentTex -= texStep;
-    }
+		if(height > currBound) break;
 
+		prevHeight = height;
+		currBound -= stepSize;
+		currentTex -= texStep;
+	}
+
+	float nextH = height - currBound;
+	float prevH = prevHeight - (currBound + stepSize);
+	float weight = nextH / (nextH - prevH);
+
+	return lerp(currentTex, currentTex + texStep, weight);
+}
+
+inline float3 BoxProject(float3 RayDir, float3 WorldPos, float4x3 InvWorldMatrix, in float4x3 WorldMatrix)
+{
+    float3 localDir = mul(RayDir, (float3x3)InvWorldMatrix);
+    float3 localPos = mul(float4(WorldPos, 1.0), InvWorldMatrix).xyz;
+
+    float3 firstPlane = (0.5 - localPos) / localDir;
+    float3 secondPlane = (-0.5 - localPos) / localDir;
+    float3 furthestPlane = max(firstPlane, secondPlane);
+    float dist = min(min(furthestPlane.x, furthestPlane.y), furthestPlane.z);
+
+    float3 localIntersect = localPos + localDir * dist;
+
+    return mul(localIntersect, (float3x3)WorldMatrix);
+}
+
+static const float4x4 DITHER_PATTERN = float4x4
+(float4(0.0f, 0.5f, 0.125f, 0.625f),
+ float4(0.75f, 0.22f, 0.875f, 0.375f),
+ float4(0.1875f, 0.6875f, 0.0625f, 0.5625f),
+ float4(0.9375f, 0.4375f, 0.8125f, 0.3125f));
+
+inline float ComputeScattering(float mie, float force, float lightDotView)
+{
+    const float PI = 3.14159265358979323846;
+    float g2 = mie * mie;
+    float x = 1.0f + g2 - (2.0f * mie) * lightDotView;
+    return (1.0f - g2) / (force * PI * x * sqrt(max(x, 0.00001f)));
+}
+
+inline float4 Hash4(float4 x, float4 y, float4 z)
+{
+    float4 p_x = frac(x * 0.1031);
+    float4 p_y = frac(y * 0.1031);
+    float4 p_z = frac(z * 0.1031);
+
+    float4 dot_val = p_x * (p_y + 33.33) + p_y * (p_z + 33.33) + p_z * (p_x + 33.33);
     
-    float nextH = height - currBound;
-    float prevH = prevHeight - (currBound + stepSize);
-    float weight = nextH / (nextH - prevH);
+    p_x += dot_val;
+    p_y += dot_val;
+    p_z += dot_val;
+    
+    return frac((p_x + p_y) * p_z);
+}
 
-    return lerp(currentTex, currentTex + texStep, weight);
+float DustNoise(float3 p, float time)
+{
+    p += time + float3(time * 0.1, time * 0.12, time * 0.1);
+
+    float3 i = floor(p);
+    float3 f = frac(p);
+    f = f * f * (3.0 - 2.0 * f);
+
+    float4 ix = i.x + float4(0.0, 1.0, 0.0, 1.0);
+    float4 iy = i.y + float4(0.0, 0.0, 1.0, 1.0);
+
+    float4 h0 = Hash4(ix, iy, i.z);
+    float4 h1 = Hash4(ix, iy, i.z + 1.0);
+
+    float2 lerpX_0 = lerp(float2(h0.x, h0.z), float2(h0.y, h0.w), f.x);
+    float2 lerpX_1 = lerp(float2(h1.x, h1.z), float2(h1.y, h1.w), f.x);
+
+    float lerpY_0 = lerp(lerpX_0.x, lerpX_0.y, f.y);
+    float lerpY_1 = lerp(lerpX_1.x, lerpX_1.y, f.y);
+
+    return lerp(lerpY_0, lerpY_1, f.z);
 }

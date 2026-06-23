@@ -8,17 +8,20 @@
 
 #include "..\Deferred\Tools.fx"
 
-const float PresentMultiply = 1.0f;
-
 #ifdef D3D11
 	texture2D tColorMap : register(t0);
-	sampler ColorMap = sampler_state { Filter = MIN_MAG_MIP_LINEAR; AddressU = Clamp; AddressV = Clamp; };
+	sampler ColorMap = sampler_state 
+	{ 
+		Filter = MIN_MAG_MIP_LINEAR; 
+		AddressU = Clamp; 
+		AddressV = Clamp;
+	};
 #else
 	sampler ColorMap : register(s0) = sampler_state
 	{
-		MinFilter = None;
-		MagFilter = None;
-		MipFilter = None;
+		MinFilter = LINEAR;
+		MagFilter = LINEAR;
+		MipFilter = LINEAR;
 		AddressU = Clamp;
 		AddressV = Clamp;
 		AddressW = Clamp;
@@ -27,7 +30,7 @@ const float PresentMultiply = 1.0f;
 
 struct PS_INPUT
 { 
-	float4 Pos 				: POSITION0; 
+	float4 Pos 				: OUT_POSITION; 
 	float2 TexCoord 		: TEXCOORD0;
 }; 
 
@@ -39,14 +42,23 @@ PS_INPUT VertexProcess(VS_INPUT input)
 	return output;
 }
 
-float4 Present(PS_INPUT input) : COLOR
+float4 Present(PS_INPUT input) : OUTPUT(0)
 {
     return float4(Sample2DLod0(ColorMap, input.TexCoord).rgb, 1.0);
 }
 
-float4 PresentMul(PS_INPUT input) : COLOR
+float4 PresentACES(PS_INPUT input) : OUTPUT(0)
 {
-    return float4(Sample2DLod0(ColorMap, input.TexCoord).rgb * PresentMultiply, 1.0);
+    float3 color = Sample2DLod0(ColorMap, input.TexCoord).rgb;
+    color = pow(max(ACESFilm(color), 0.0), 0.707);
+    return float4(LinearToSRGB(color), 1.0);
+}
+
+float4 PresentPow(PS_INPUT input) : OUTPUT(0)
+{
+    float3 color = Sample2DLod0(ColorMap, input.TexCoord).rgb;
+    color = pow(color, 0.85);
+    return float4(LinearToSRGB(color), 1.0);
 }
 
 technique Main
@@ -64,12 +76,27 @@ technique Main
 	}
 }
 
-technique Mul
+technique ACES
 {
 	pass p0
 	{
 		Vertex(VertexProcess);
-		Pixel(PresentMul);
+		Pixel(PresentACES);
+		
+		#ifndef D3D11
+		ZWriteEnable = false;
+		ClipPlaneEnable = false;
+		Lighting = false;
+		#endif
+	}
+}
+
+technique Pow
+{
+	pass p0
+	{
+		Vertex(VertexProcess);
+		Pixel(PresentPow);
 		
 		#ifndef D3D11
 		ZWriteEnable = false;

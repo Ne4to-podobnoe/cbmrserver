@@ -36,7 +36,24 @@ enum Callbacks
 	OnLog_c					= 34,
 	IncomingConnection_c	= 35,
 	ShellDamagePlayer_c		= 36,
-	ShellExploded_c			= 37
+	ShellExplode_c			= 37,
+	ConnectionLoaded_c 		= 38,
+	ConnectionClosed_c 		= 39,
+	CreateItem_c 			= 39,
+	RemoveItem_c 			= 40,
+	CreateNPC_c 			= 41,
+	RemoveNPC_c 			= 42,
+	CreateCorpse_c 			= 43,
+	RemoveCorpse_c 			= 44,
+	CreateObject_c 			= 45,
+	RemoveObject_c 			= 46,
+	CreateLight_c 			= 47,
+	RemoveLight_c 			= 48,
+	CreateGUIElement_c 		= 49,
+	RemoveGUIElement_c 		= 50,
+	CreateShell_c 			= 51,
+	RemoveShell_c 			= 52,
+	PlayerSpectateAction_c	= 53
 }
 
 const string[] EventCallbacks = 
@@ -78,7 +95,24 @@ const string[] EventCallbacks =
 	"OnLogMessage",
 	"OnIncomingConnection",
 	"OnShellDamagePlayer",
-	"OnShellExploded"
+	"OnShellExplode",
+	"OnConnectionLoaded",
+	"OnConnectionClosed",
+	"OnCreateItem",
+	"OnRemoveItem",
+	"OnCreateNPC",
+	"OnRemoveNPC",
+	"OnCreateCorpse",
+	"OnRemoveCorpse",
+	"OnCreateObject",
+	"OnRemoveObject",
+	"OnCreateLight",
+	"OnRemoveLight",
+	"OnCreateGUIElement",
+	"OnRemoveGUIElement",
+	"OnCreateShell",
+	"OnRemoveShell",
+	"OnPlayerSpectateAction"
 };
 
 // You can register a callback for an indefinite number of functions.
@@ -130,7 +164,24 @@ void RegisterAllCallbacks()
 	RegisterCallback(OnLog_c);
 	RegisterCallback(IncomingConnection_c);
 	RegisterCallback(ShellDamagePlayer_c);
-	RegisterCallback(ShellExploded_c);
+	RegisterCallback(ShellExplode_c);
+	RegisterCallback(ConnectionLoaded_c);
+	RegisterCallback(ConnectionClosed_c);
+	RegisterCallback(CreateItem_c);
+	RegisterCallback(RemoveItem_c);
+	RegisterCallback(CreateNPC_c);
+	RegisterCallback(RemoveNPC_c);
+	RegisterCallback(CreateCorpse_c);
+	RegisterCallback(RemoveCorpse_c);
+	RegisterCallback(CreateObject_c);
+	RegisterCallback(RemoveObject_c);
+	RegisterCallback(CreateLight_c);
+	RegisterCallback(RemoveLight_c);
+	RegisterCallback(CreateGUIElement_c);
+	RegisterCallback(RemoveGUIElement_c);
+	RegisterCallback(CreateShell_c);
+	RegisterCallback(RemoveShell_c);
+	RegisterCallback(PlayerSpectateAction_c);
 }
 
 enum Dialog
@@ -269,8 +320,7 @@ enum DefaultAttaches
 	WEAPON_VIEWMODEL966_ATTACHMODEL = 37,
 	WEAPON_REMINGTON_ATTACHMODEL = 38,
 	WEAPON_RPG_ATTACHMODEL = 39,
-	WEAPON_G36_ATTACHMODEL = 40,
-	WEAPON_AK12_ATTACHMODEL = 41
+	WEAPON_G36_ATTACHMODEL = 40
 }
 
 enum AttachesParts // Default reserved attach parts for SetAttach
@@ -308,8 +358,7 @@ enum DefaultWeapons
 	WEAPON_VIEWMODEL966 = 17,
 	WEAPON_REMINGTON = 18,
 	WEAPON_RPG = 19,
-	WEAPON_G36 = 20,
-	WEAPON_AK12 = 21
+	WEAPON_G36 = 20
 }
 
 enum RoomIdentifiers
@@ -790,19 +839,25 @@ bool IsMousePressed(int mask, int button) { return ((mask & button) != 0); } // 
 
 const float ROOM_SCALE = 8.0 / 2048.0;
 
-// Players range is 1..120
-const int MAX_PLAYERS = 120;
+// Players range is 1..240
+const int MAX_PLAYERS = 240;
 
-const int MAX_ITEMS = 1280;
 const int MAX_DOORS	= 1000;
 const int MAX_ROOMS = 256;
 const int MAX_EVENTS = 256;
-const int MAX_OBJECTS = 256;
 const int MAX_NPCS = 256;
 const int MAX_CORPSE_INVENTORY = 10;
 const int MAX_PLAYER_INVENTORY = 10;
 const int MAX_PLAYER_TAGS = 6;
-const int MAX_CORPSES = 200;
 
 // Indexes starting from 0 without -1
 const int MAX_ROOM_DOORS = 8; // 0..8
+
+// WMIDs for GetHWID
+const int WMI_ALL = 0;
+const int WMI_UUID = 1;
+const int WMI_SERIALNUMBER = 2;
+const int WMI_HDD = 3;
+const int WMI_IDENTNUM = 4;
+const int WMI_BASESERIALNUMBER = 5;
+const int WMI_MACADDRESS = 6;
