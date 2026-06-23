@@ -320,7 +320,19 @@ enum DefaultAttaches
 	WEAPON_VIEWMODEL966_ATTACHMODEL = 37,
 	WEAPON_REMINGTON_ATTACHMODEL = 38,
 	WEAPON_RPG_ATTACHMODEL = 39,
-	WEAPON_G36_ATTACHMODEL = 40
+	WEAPON_G36_ATTACHMODEL = 40,
+	WEAPON_AK74_ATTACHMODEL = 41,
+
+	WEAPON_EMP_ATTACHMODEL = 502,
+	WEAPON_STEMTEX_ATTACHMODEL = 503,
+	WEAPON_KNIFE_ATTACHMODEL = 504,
+	WEAPON_M69_ATTACHMODEL = 505,
+	WEAPON_SCP005_ATTACHMODEL = 506,
+	WEAPON_SEVEREDHAND_ATTACHMODEL = 507,
+	WEAPON_HACKINGDEVICE_ATTACHMODEL = 508,
+	WEAPON_SNAV_ATTACHMODEL = 509,
+	WEAPON_RADIO_ATTACHMODEL = 510,
+	WEAPON_KEYCARD_ATTACHMODEL = 511
 }
 
 enum AttachesParts // Default reserved attach parts for SetAttach
@@ -358,7 +370,19 @@ enum DefaultWeapons
 	WEAPON_VIEWMODEL966 = 17,
 	WEAPON_REMINGTON = 18,
 	WEAPON_RPG = 19,
-	WEAPON_G36 = 20
+	WEAPON_G36 = 20,
+	WEAPON_AK74 = 21,
+
+	WEAPON_EMP = 246,
+	WEAPON_STEMTEX = 247,
+	WEAPON_KNIFE = 248,
+	WEAPON_M69 = 249,
+	WEAPON_SCP005 = 250,
+	WEAPON_SEVEREDHAND = 251,
+	WEAPON_HACKINGDEVICE = 252,
+	WEAPON_SNAV = 253,
+	WEAPON_RADIO = 254,
+	WEAPON_KEYCARD = 255
 }
 
 enum RoomIdentifiers
@@ -392,7 +416,7 @@ enum RoomIdentifiers
 	r_room1_dead_end_hcz = 41,
 	r_cont1_035 = 42, r_cont1_079 = 43, r_cont1_106 = 44, r_cont1_895 = 45,
 	r_room2_hcz = 46, r_room2_2_hcz = 47, r_room2_3_hcz = 48, r_room2_4_hcz = 49, r_room2_5_hcz = 50, r_room2_6_hcz = 51, r_room2_7_hcz = 52,
-	r_room2_mt = 53,
+	r_room2_mt = 53, r_cont2_457 = 53,
 	r_room2_nuke = 54,
 	r_room2_servers_hcz = 55,
 	r_room2_shaft = 56,
@@ -434,13 +458,14 @@ enum RoomIdentifiers
 	r_room2_tesla_2_hcz = 116,
 	r_room4_gw = 117,
 	r_room4_3_lcz = 118,
-	r_cont2_457	= 119,
+	r_room4_3_ez = 119,
+	r_room2c_research = 120,
 	r_RESERVED = 300 // Rooms ID to 300 are reserved for future versions of CB2
 }
 
 enum EventIdentifiers
 {
-	// LCZ
+	// ~ LCZ
 	e_room1_dead_end_106 = 0,
 	e_room1_storage = 1,
 	e_cont1_005 = 2,
@@ -461,7 +486,7 @@ enum EventIdentifiers
 	e_room3_storage = 18,
 	e_cont3_372 = 19,
 	e_room4_ic = 20,
-	// HCZ
+	// ~ HCZ
 	e_cont1_035 = 21,
 	e_cont1_079 = 22,
 	e_cont1_106 = 23,
@@ -483,7 +508,7 @@ enum EventIdentifiers
 	e_room2_office_3 = 41,
 	e_cont3_966 = 42,
 	e_room4_2_hcz_d = 43,
-	// EZ
+	// ~ EZ
 	e_gate_b_entrance = 44, e_gate_b = 45,
 	e_gate_a_entrance = 46, e_gate_a = 47,
 	e_room1_dead_end_guard = 48,
@@ -498,7 +523,7 @@ enum EventIdentifiers
 	e_cont2_860_1 = 58,
 	e_room2c_ec = 59,
 	e_room3_2_ez_duck = 60,
-	// OTHERS
+	// ~ OTHERS
 	e_096_spawn = 61,
 	e_106_victim = 62,
 	e_106_victim_wall = 63,
@@ -513,10 +538,11 @@ enum EventIdentifiers
 	e_tesla = 72,
 	e_trick = 73, e_trick_item = 74,
 	e_dimension_106 = 75, e_dimension_1499 = 76,
-	// NEW VERSIONS
+	// ~ NEW VERSIONS
 	e_gate_a_b = 77,
 	e_cont3_009 = 78,
 	e_broken_tesla = 79,
+	e_room2c_gw_lcz = 80
 }
 
 enum ItemsIdentifiers
@@ -693,6 +719,11 @@ enum ItemsIdentifiers
 	it_headphones = 126,
 	it_rpg = 127,
 	it_g36 = 128,
+	it_ak74 = 129,
+	it_m69 = 130,
+	it_m9 = 131,
+	it_stemtex = 132,
+	it_emp = 133,
 	it_RESERVETO = 500 // Items ID to 500 are reserved for future versions of CB2
 }
 
@@ -786,7 +817,9 @@ enum Fonts
 	Font_Tahoma = 8,
 	Font_Icons = 9,
 	Font_Default_Medium = 10,
-	Font_Icons_Big = 11
+	Font_Icons_Big = 11,
+	Font_Console_Small = 12,
+	Font_Default_Small = 13
 }
 
 enum KeysTypes
