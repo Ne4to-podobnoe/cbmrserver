@@ -36,7 +36,24 @@ enum Callbacks
 	OnLog_c					= 34,
 	IncomingConnection_c	= 35,
 	ShellDamagePlayer_c		= 36,
-	ShellExploded_c			= 37
+	ShellExplode_c			= 37,
+	ConnectionLoaded_c 		= 38,
+	ConnectionClosed_c 		= 39,
+	CreateItem_c 			= 39,
+	RemoveItem_c 			= 40,
+	CreateNPC_c 			= 41,
+	RemoveNPC_c 			= 42,
+	CreateCorpse_c 			= 43,
+	RemoveCorpse_c 			= 44,
+	CreateObject_c 			= 45,
+	RemoveObject_c 			= 46,
+	CreateLight_c 			= 47,
+	RemoveLight_c 			= 48,
+	CreateGUIElement_c 		= 49,
+	RemoveGUIElement_c 		= 50,
+	CreateShell_c 			= 51,
+	RemoveShell_c 			= 52,
+	PlayerSpectateAction_c	= 53
 }
 
 const string[] EventCallbacks = 
@@ -78,7 +95,24 @@ const string[] EventCallbacks =
 	"OnLogMessage",
 	"OnIncomingConnection",
 	"OnShellDamagePlayer",
-	"OnShellExploded"
+	"OnShellExplode",
+	"OnConnectionLoaded",
+	"OnConnectionClosed",
+	"OnCreateItem",
+	"OnRemoveItem",
+	"OnCreateNPC",
+	"OnRemoveNPC",
+	"OnCreateCorpse",
+	"OnRemoveCorpse",
+	"OnCreateObject",
+	"OnRemoveObject",
+	"OnCreateLight",
+	"OnRemoveLight",
+	"OnCreateGUIElement",
+	"OnRemoveGUIElement",
+	"OnCreateShell",
+	"OnRemoveShell",
+	"OnPlayerSpectateAction"
 };
 
 // You can register a callback for an indefinite number of functions.
@@ -130,7 +164,24 @@ void RegisterAllCallbacks()
 	RegisterCallback(OnLog_c);
 	RegisterCallback(IncomingConnection_c);
 	RegisterCallback(ShellDamagePlayer_c);
-	RegisterCallback(ShellExploded_c);
+	RegisterCallback(ShellExplode_c);
+	RegisterCallback(ConnectionLoaded_c);
+	RegisterCallback(ConnectionClosed_c);
+	RegisterCallback(CreateItem_c);
+	RegisterCallback(RemoveItem_c);
+	RegisterCallback(CreateNPC_c);
+	RegisterCallback(RemoveNPC_c);
+	RegisterCallback(CreateCorpse_c);
+	RegisterCallback(RemoveCorpse_c);
+	RegisterCallback(CreateObject_c);
+	RegisterCallback(RemoveObject_c);
+	RegisterCallback(CreateLight_c);
+	RegisterCallback(RemoveLight_c);
+	RegisterCallback(CreateGUIElement_c);
+	RegisterCallback(RemoveGUIElement_c);
+	RegisterCallback(CreateShell_c);
+	RegisterCallback(RemoveShell_c);
+	RegisterCallback(PlayerSpectateAction_c);
 }
 
 enum Dialog
@@ -270,7 +321,22 @@ enum DefaultAttaches
 	WEAPON_REMINGTON_ATTACHMODEL = 38,
 	WEAPON_RPG_ATTACHMODEL = 39,
 	WEAPON_G36_ATTACHMODEL = 40,
-	WEAPON_AK12_ATTACHMODEL = 41
+	WEAPON_AK74_ATTACHMODEL = 41,
+	
+	// It's better to add new attaches via addons until 256 id
+	WEAPON_COIN_ATTACHMODEL = 499,
+	WEAPON_KEY860_ATTACHMODEL = 500,
+	WEAPON_KEY_ATTACHMODEL = 501,
+	WEAPON_EMP_ATTACHMODEL = 502,
+	WEAPON_STEMTEX_ATTACHMODEL = 503,
+	WEAPON_KNIFE_ATTACHMODEL = 504,
+	WEAPON_M69_ATTACHMODEL = 505,
+	WEAPON_SCP005_ATTACHMODEL = 506,
+	WEAPON_SEVEREDHAND_ATTACHMODEL = 507,
+	WEAPON_HACKINGDEVICE_ATTACHMODEL = 508,
+	WEAPON_SNAV_ATTACHMODEL = 509,
+	WEAPON_RADIO_ATTACHMODEL = 510,
+	WEAPON_KEYCARD_ATTACHMODEL = 511
 }
 
 enum AttachesParts // Default reserved attach parts for SetAttach
@@ -309,7 +375,22 @@ enum DefaultWeapons
 	WEAPON_REMINGTON = 18,
 	WEAPON_RPG = 19,
 	WEAPON_G36 = 20,
-	WEAPON_AK12 = 21
+	WEAPON_AK74 = 21,
+	
+	// It's better to add new weapons via addons until 128 id
+	WEAPON_COIN = 243,
+	WEAPON_KEY860 = 244,
+	WEAPON_KEY = 245,
+	WEAPON_EMP = 246,
+	WEAPON_STEMTEX = 247,
+	WEAPON_KNIFE = 248,
+	WEAPON_M69 = 249,
+	WEAPON_SCP005 = 250,
+	WEAPON_SEVEREDHAND = 251,
+	WEAPON_HACKINGDEVICE = 252,
+	WEAPON_SNAV = 253,
+	WEAPON_RADIO = 254,
+	WEAPON_KEYCARD = 255
 }
 
 enum RoomIdentifiers
@@ -343,7 +424,7 @@ enum RoomIdentifiers
 	r_room1_dead_end_hcz = 41,
 	r_cont1_035 = 42, r_cont1_079 = 43, r_cont1_106 = 44, r_cont1_895 = 45,
 	r_room2_hcz = 46, r_room2_2_hcz = 47, r_room2_3_hcz = 48, r_room2_4_hcz = 49, r_room2_5_hcz = 50, r_room2_6_hcz = 51, r_room2_7_hcz = 52,
-	r_room2_mt = 53,
+	r_room2_mt = 53, r_cont2_457 = 53,
 	r_room2_nuke = 54,
 	r_room2_servers_hcz = 55,
 	r_room2_shaft = 56,
@@ -385,13 +466,14 @@ enum RoomIdentifiers
 	r_room2_tesla_2_hcz = 116,
 	r_room4_gw = 117,
 	r_room4_3_lcz = 118,
-	r_cont2_457	= 119,
+	r_room4_3_ez = 119,
+	r_room2c_research = 120,
 	r_RESERVED = 300 // Rooms ID to 300 are reserved for future versions of CB2
 }
 
 enum EventIdentifiers
 {
-	// LCZ
+	// ~ LCZ
 	e_room1_dead_end_106 = 0,
 	e_room1_storage = 1,
 	e_cont1_005 = 2,
@@ -412,7 +494,7 @@ enum EventIdentifiers
 	e_room3_storage = 18,
 	e_cont3_372 = 19,
 	e_room4_ic = 20,
-	// HCZ
+	// ~ HCZ
 	e_cont1_035 = 21,
 	e_cont1_079 = 22,
 	e_cont1_106 = 23,
@@ -434,7 +516,7 @@ enum EventIdentifiers
 	e_room2_office_3 = 41,
 	e_cont3_966 = 42,
 	e_room4_2_hcz_d = 43,
-	// EZ
+	// ~ EZ
 	e_gate_b_entrance = 44, e_gate_b = 45,
 	e_gate_a_entrance = 46, e_gate_a = 47,
 	e_room1_dead_end_guard = 48,
@@ -449,7 +531,7 @@ enum EventIdentifiers
 	e_cont2_860_1 = 58,
 	e_room2c_ec = 59,
 	e_room3_2_ez_duck = 60,
-	// OTHERS
+	// ~ OTHERS
 	e_096_spawn = 61,
 	e_106_victim = 62,
 	e_106_victim_wall = 63,
@@ -464,10 +546,11 @@ enum EventIdentifiers
 	e_tesla = 72,
 	e_trick = 73, e_trick_item = 74,
 	e_dimension_106 = 75, e_dimension_1499 = 76,
-	// NEW VERSIONS
+	// ~ NEW VERSIONS
 	e_gate_a_b = 77,
 	e_cont3_009 = 78,
 	e_broken_tesla = 79,
+	e_room2c_gw_lcz = 80
 }
 
 enum ItemsIdentifiers
@@ -644,6 +727,11 @@ enum ItemsIdentifiers
 	it_headphones = 126,
 	it_rpg = 127,
 	it_g36 = 128,
+	it_ak74 = 129,
+	it_m69 = 130,
+	it_m9 = 131,
+	it_stemtex = 132,
+	it_emp = 133,
 	it_RESERVETO = 500 // Items ID to 500 are reserved for future versions of CB2
 }
 
@@ -737,7 +825,9 @@ enum Fonts
 	Font_Tahoma = 8,
 	Font_Icons = 9,
 	Font_Default_Medium = 10,
-	Font_Icons_Big = 11
+	Font_Icons_Big = 11,
+	Font_Console_Small = 12,
+	Font_Default_Small = 13
 }
 
 enum KeysTypes
@@ -790,19 +880,25 @@ bool IsMousePressed(int mask, int button) { return ((mask & button) != 0); } // 
 
 const float ROOM_SCALE = 8.0 / 2048.0;
 
-// Players range is 1..120
-const int MAX_PLAYERS = 120;
+// Players range is 1..240
+const int MAX_PLAYERS = 240;
 
-const int MAX_ITEMS = 1280;
 const int MAX_DOORS	= 1000;
 const int MAX_ROOMS = 256;
 const int MAX_EVENTS = 256;
-const int MAX_OBJECTS = 256;
 const int MAX_NPCS = 256;
 const int MAX_CORPSE_INVENTORY = 10;
 const int MAX_PLAYER_INVENTORY = 10;
 const int MAX_PLAYER_TAGS = 6;
-const int MAX_CORPSES = 200;
 
 // Indexes starting from 0 without -1
 const int MAX_ROOM_DOORS = 8; // 0..8
+
+// WMIDs for GetHWID
+const int WMI_ALL = 0;
+const int WMI_UUID = 1;
+const int WMI_SERIALNUMBER = 2;
+const int WMI_HDD = 3;
+const int WMI_IDENTNUM = 4;
+const int WMI_BASESERIALNUMBER = 5;
+const int WMI_MACADDRESS = 6;

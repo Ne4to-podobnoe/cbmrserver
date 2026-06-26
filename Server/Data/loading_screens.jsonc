@@ -36,8 +36,8 @@
 	{
 		"title": "The Chaos Insurgency",
 		"image": "chaos.png",
-		"align_x": "left",
-		"align_y": "bottom",
+		"align_x": "center",
+		"align_y": "center",
 		"background": false,
 		"descriptions": [
 			"The Chaos Insurgency is a splinter group of the Foundation, created by a rogue cell that went A.W.O.L. with several highly useful SCPs in 1924.",
@@ -48,9 +48,9 @@
 	{
 		"title": "The SCP Foundation",
 		"image": "foundation_logo.png",
-		"align_x": "left",
-		"align_y": "top",
-		"background": true,
+		"align_x": "center",
+		"align_y": "center",
+		"background": false,
 		"descriptions": [
 			"The SCP Foundation is an organization dedicated to the containment and research of anomalous artifacts and lifeforms.",
 			"\"SCP\" stands for \"Special Containment Procedures\" (and the unofficial motto of the Foundation, \"Secure, Contain, Protect\") - which sums up both the goals and methods of the Foundation's actions."
@@ -84,7 +84,7 @@
 		"image": "009.png",
 		"align_x": "right",
 		"align_y": "top",
-		"background": false,
+		"background": true,
 		"descriptions": [
 			"SCP-009 is approximately [REDACTED] liters of a substance which superficially resembles distilled water (H2O), except with a distinct bright red hue.",
 			"Its most notable property, however, is the fact that SCP-009's reaction to temperature extremes is exactly opposite that of standard H2O: the subject assumes a liquid phase at temperatures between -100°C and 0°C, and converts into a solid state above those temperatures. At temperatures below -100°C, SCP-009 vaporizes into a gaseous phase similar to steam, though it still retains its red coloration when put under high pressure.",
@@ -94,8 +94,8 @@
 	{
 		"title": "SCP-012",
 		"image": "012.png",
-		"align_x": "right",
-		"align_y": "top",
+		"align_x": "center",
+		"align_y": "center",
 		"background": false,
 		"descriptions": [
 			"The object, a piece of handwritten musical score entitled \"On Mount Golgotha\", part of a larger set of sheet music, appears to be incomplete.",
@@ -108,7 +108,7 @@
 		"image": "035.png",
 		"align_x": "right",
 		"align_y": "top",
-		"background": false,
+		"background": true,
 		"descriptions": [
 			"SCP-035 appears to be a white porcelain comedy mask, although, at times, it will change to tragedy.",
 			"When SCP-035 is placed on the face of an individual, an alternate brain wave pattern from SCP-035 overlaps that of the original host, effectively snuffing it out and causing brain death to the subject. Subject then claims to be the consciousness contained within SCP-035.",
@@ -119,8 +119,8 @@
 		"title": "SCP-049",
 		"image": "049.png",
 		"align_x": "left",
-		"align_y": "center",
-		"background": false,
+		"align_y": "top",
+		"background": true,
 		"descriptions": [
 			"SCP-049 is a humanoid entity, roughly 1.9 meters in height, which bears the appearance of a medieval plague doctor. SCP-049 will become hostile with individuals it sees as being affected by the Pestilence.",
 			"SCP-049 is capable of causing all biological functions of an organism to cease through direct skin contact.",
@@ -139,8 +139,8 @@
 			"After Incident 066-2 (see Incident Report 066-2), SCP-066 began to display behavior highly inconsistent with its previous properties.",
 			"SCP-066 now displays significant mobility, and will produce notes and anomalous effects in the presence of any human, regardless of whether that human interacts with SCP-066."
 		]
-	},
-	{
+	},  
+	{   
 		"title": "SCP-079",
 		"image": "079.png",
 		"align_x": "center",
@@ -150,13 +150,25 @@
 			"SCP-079 is an Exidy Sorcerer microcomputer built in 1978.",
 			"It is not known when SCP-079 gained sentience, but it is known that the software has evolved to a point that its hardware should not be able to handle it, even in the realm of fantasy.",
 			"It has passed the Turing test, and is quite conversational, though very rude and hateful in tone. It also displays a malevolent desire to escape."
+        ]
+    },
+	{
+        "title": "SCP-085",
+		"image": "085.png",
+		"align_x": "right",
+		"align_y": "bottom",
+		"background": true,
+		"descriptions": [
+			"SCP-085 prefers to be called \"Cassy\". She is completely sentient and she has learned to communicate with SCP Foundation personnel through sign language and writing.",
+			"SCP-085 may be communicated with by writing text on the paper she exists on. Personnel report that she is amicable and motivated, albeit lonely.",
+			"SCP-085 has also demonstrated the ability to transfer from one sheet or image to another, as long as the two are flush."
 		]
 	},
 	{
 		"title": "SCP-096",
 		"image": "096.png",
-		"align_x": "right",
-		"align_y": "bottom",
+		"align_x": "center",
+		"align_y": "center",
 		"background": false,
 		"descriptions": [
 			"SCP-096 is normally extremely docile, with pressure sensors inside its cell indicating it spends most of the day pacing by the eastern wall.",
@@ -200,22 +212,10 @@
 		"image": "205.png",
 		"align_x": "right",
 		"align_y": "bottom",
-		"background": false,
+		"background": true,
 		"descriptions": [
 			"SCP-205 is a pair of flood lamps used in photography. The light emitted by each lamp behaves in a manner unique to SCP-205 and passes completely through any surface that is not colored white.",
 			"If the light continues uninterrupted through any matter, otherwise casting no shadow, each lamp will display an unidentified young woman's shadow upon any flat white surface, such as the projection screen in Chamber 52."
-		]
-	},
-	{
-		"title": "SCP-268",
-		"image": "268.png",
-		"align_x": "center",
-		"align_y": "center",
-		"background": false,
-		"descriptions": [
-			"SCP-268 is a tweed-wool newsboy cap. The design and make seem to be of Irish origin. Due to the style and fabric, it is estimated to have been created in the late 1800's to early 1900's, though fiber analysis is inconclusive.",
-			"SCP-268 seems to be a normal hat until it is worn. Anyone wearing the hat, however, becomes suddenly and instantly unnoticeable. Subjects become unmemorable, thoroughly ignorable, or \"taken for granted\" by all observers.",
-			"Observers seem to have the overwhelming feeling that the wearer is someone that was \"supposed to be there\", and thus did not merit thought or notice."
 		]
 	},
 	{
@@ -233,8 +233,8 @@
 	{
 		"title": "SCP-372",
 		"image": "372.png",
-		"align_x": "left",
-		"align_y": "bottom",
+		"align_x": "center",
+		"align_y": "center",
 		"background": false,
 		"descriptions": [
 			"SCP-372 is a creature of unknown genus, approximately 2 meters long from head to tail and weighing approximately 45 kilograms.  It has a long, thin body with eight pairs of narrow limbs.",
@@ -266,6 +266,18 @@
 			"As a standard of measure, the common cold takes 3 to 10 days to be worked through the human immune system and eventually removed. In the presence of an opened SCP-427, this time is reduced to 2 to 4 minutes.",
 			"However, long-term exposure produces a significant health hazard. As the locket heals damage, it optimizes the body's natural systems. Class-D personnel exposed to the device for over [DATA REDACTED] total began mutating into a shapeless mass of tissue."
 		]
+	},
+	{
+        "title": "SCP-457",
+		"image": "457.png",
+		"align_x": "center",
+		"align_y": "center",
+		"background": false,
+		"descriptions": [
+			"SCP-457's actual composition is unknown, and has proven to be invisible and undetectable by any known means, but is shaped out by the flames it produces, often assuming a human-like form if given sufficient fuel to assume that size.",
+			"As SCP-457 grows larger, it is able to assume more complex shapes, and its intelligence grows with size and fuel sources.",
+			"SCP-457's method of intelligence is unknown, but upon reaching an approximately human size, SCP-457 almost always assumes a human-like form surrounded by and composed of flames."
+        ]
 	},
 	{
 		"title": "SCP-458",
@@ -308,7 +320,7 @@
 		"image": "682.png",
 		"align_x": "right",
 		"align_y": "bottom",
-		"background": false,
+		"background": true,
 		"descriptions": [
 			"SCP-682 is a large, vaguely reptile-like creature of unknown origin. It appears to have a hatred of all life, which has been expressed in several interviews during containment.",
 			"SCP-682 has always been observed to have extremely high strength, speed, and reflexes, though exact levels vary with its form. SCP-682's regenerative capabilities and resilience are staggering, and it has been seen moving and speaking with its body 87% destroyed or rotted.",
@@ -369,7 +381,7 @@
 		"image": "939.png",
 		"align_x": "left",
 		"align_y": "top",
-		"background": false,
+		"background": true,
 		"descriptions": [
 			"SCP-939 are endothermic, pack-based predators which display atrophy of various systems similar to troglobitic organisms. SCP-939 average 2.2 meters tall standing upright and weigh an average of 250kg, though weight is highly variable.",
 			"SCP-939's primary method of luring prey is the imitation of human speech in the voices of prior victims. SCP-939 vocalizations often imply significant distress.",
@@ -379,13 +391,13 @@
 	{
 		"title": "SCP-966",
 		"image": "966.png",
-		"align_x": "left",
-		"align_y": "bottom",
+		"align_x": "center",
+		"align_y": "center",
 		"background": false,
 		"descriptions": [
 			"SCP-966 are visible only at wavelengths ranging from 700 nm to about 900 nm. This applies to all of SCP-966's tissues, regardless of their current state.",
 			"Their hunting methods consist on emitting a single burst of a previously unknown type of wave, which permanently inhibits the ability of the affected creature to enter in any of the NREM and REM sleep stages. The ability to micro sleep is also lost.",
-			"Wild instances of SCP-966 are found all over the world. Since their discovery in [REDACTED], the Foundation has succeeded in greatly thinning their numbers, though they are still found in large quantities in many countries."
+			"These waves also induce fatigue, reduce motor activity, and instill in victims an intense desire to sleep while rendering sleep entirely impossible."
 		]
 	},
 	{
@@ -403,8 +415,8 @@
 	{
 		"title": "SCP-999",
 		"image": "999.png",
-		"align_x": "right",
-		"align_y": "bottom",
+		"align_x": "center",
+		"align_y": "center",
 		"background": false,
 		"descriptions": [
 			"SCP-999 appears to be a large, amorphous, gelatinous mass of translucent orange slime, weighing about 54 kg (120 lbs) with a consistency similar to that of peanut butter.",
@@ -427,9 +439,9 @@
 	{
 		"title": "SCP-1048",
 		"image": "1048.png",
-		"align_x": "center",
+		"align_x": "left",
 		"align_y": "bottom",
-		"background": false,
+		"background": true,
 		"descriptions": [
 			"SCP-1048 is a small teddy bear, approximately 33cm in height. Through testing, composition of the subject revealed no unusual qualities that make it discernible from a non-sapient teddy bear.",
 			"Subject is capable of moving of its own accord, and can communicate through a small range of gestures. Attempts at direct communication with SCP-1048 have not been considered successful.",
@@ -485,8 +497,8 @@
 	{
 		"title": "SCP-1499",
 		"image": "1499.png",
-		"align_x": "right",
-		"align_y": "bottom",
+		"align_x": "center",
+		"align_y": "center",
 		"background": false,
 		"descriptions": [
 			"SCP-1499 is a Soviet GP-5 gas mask. A seal test performed on the object suggests that the object retains its original functionality.",
@@ -519,14 +531,6 @@
 		]
 	},
 	{
-		"title": "Locking Devices",
-		"image": "devices.png",
-		"align_x": "center",
-		"align_y": "center",
-		"background": false,
-		"descriptions": null
-	},
-	{
 		"title": "Mobile Task Forces",
 		"image": "MTF.png",
 		"align_x": "center",
@@ -534,30 +538,34 @@
 		"background": false,
 		"descriptions": [
 			"MTFs are small teams (ten to twenty operatives usually, although groups with more than 50 operatives are not unheard of) that specialize in specific roles or respond to specific situations.",
-			"Mobile Task Force E-11 (\"Nine Tailed Fox\") is an intensively trained Task Force specializing in the protection and recontainment of SCP items kept at Site-[DATA REDACTED].",
-			"Their tasks include handling containment breaches by re-containing all active, hostile SCP instances, rescuing surviving Foundation personnel and terminating any rogue Class-D personnel."
+			"Following several Chaos Insurgency raids on Site-15, Site-19, Site-35, etc., Epsilon-11 was established as a quick-reaction unit, trained and equipped to deal with large scale containment breaches, Class-D riots, and hostile raids.",
+			"Epsilon-11 operatives are widely considered some of the best of the best amongst the Foundation's task forces."
 		]
 	},
 	{
-		"title": "Night Vision Goggles",
-		"image": "NVG.png",
+		"title": "Optical devices",
+		"image": "OD.png",
 		"align_x": "center",
 		"align_y": "center",
 		"background": false,
 		"descriptions": [
-			"Standard-issue night vision goggles are given to MTFs in the event of an electrical blackout.",
-			"Scientists are also provided with them, but are advised to focus on evacuation in a blackout."
+                                                "The SCP Foundation employs a wide range of optical devices, including night vision goggles, and for more specialized purposes — the SCRAMBLE Gear.",
+			"Standard-issue night vision goggles are given to MTFs in the event of an electrical blackout. Scientists are also provided with them, but are advised to focus on evacuation in a blackout. Night vision goggles are commonly used by maintenance personnel.",
+			"SCRAMBLE Gear is a specialized device designed to scramble the visual image of SCP-096’s face, preventing the entity from entering its rage state when observed. SCRAMBLE Gear is a critical tool for safely containing SCP-096 during missions where its presence poses a threat."
 		]
 	},
 	{
-		"title": "Radio Transceiver",
-		"image": "radio.png",
-		"align_x": "right",
-		"align_y": "bottom",
-		"background": true,
+		"title": "Pocket Devices",
+		"image": "PD.png",
+		"align_x": "center",
+		"align_y": "center",
+		"background": false,
 		"descriptions": [
-			"The radio is an equippable item. It's essential in supplying the personnel with information by listening to conversations being broadcast amongst Foundation staff.",
-			"The user can switch through channels one-five (1-5) by pressing the corresponding number key."
+                                                "The navigator is a device that allows personnel to orient themselves within the facility. It displays a map of the current site, which is extremely useful given the confusing, labyrinth-like layout of the modular site.",
+                                                "The E-Reader is a device that allows personnel to store and access large amounts of internal documentation. Pages can be quickly navigated using the device’s controls, while the integrated document scanning function allows new files to be uploaded efficiently.",
+			"The radio is an equippable item. It's essential in supplying the personnel with information by listening to conversations being broadcast amongst Foundation staff. The user can switch through channels one-five (1-5) by pressing the corresponding number key."
 		]
 	}
 ]
+
+

@@ -13,7 +13,7 @@ gamemode
 emptybehaviour 1
 scriptsautoload true
 disablenpcs false
-proximityplayers 500000.0
+player_culling true
 mapbounds 1000.0
 respawntime 0
 contenturl

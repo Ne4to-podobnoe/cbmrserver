@@ -1,1 +1,0 @@
-Read instructions at https://scpcbmr.42web.io/addons.html?i=1

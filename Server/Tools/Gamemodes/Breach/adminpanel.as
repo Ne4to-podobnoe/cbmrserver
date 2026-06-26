@@ -648,7 +648,7 @@ namespace AdminPanel
 			void RestartServer(Player p, bool result, string input, int item)
 			{
 				if(!result) { ShowControl(p); return; }
-				Round::End();
+				server.Restart();
 			}
 		}
 		

@@ -15,6 +15,7 @@ class info_Player
 	GUIElement RoleInfo;
 	GUIElement hitElement;
 	GUIElement cuffElement;
+	array<GUIElement> postEffects;
 	int roleTimer;
 	int logicTimer;
 	int animTimer;
@@ -162,6 +163,10 @@ void SetPlayerRole(Player p, Role@ targetRole, int texture = -1)
 		playerInfo.RoleInfo.SetText("&colr[" + targetRole.color.R() + " " + targetRole.color.G() + " " + targetRole.color.B() + "]" + targetRole.name);
 		p.SetGodmode(targetRole.godmode);
 		
+		for(int i = 0; i < targetRole.postEffects.size(); i++) {
+			playerInfo.postEffects.push_back(graphics.CreatePostEffect(p, targetRole.postEffects[i]));
+		}
+		
 		p.SetPositionBounds(NULL);
 	}
 }
@@ -196,6 +201,11 @@ void NullPlayerStats(Player p)
 		}
 		p.SetSpeedMultiplier(1.0);
 		playerInfo.hasGUI = false;
+	}
+	
+	for(int i = playerInfo.postEffects.size() - 1; i >= 0; i--) {
+		playerInfo.postEffects[i].Remove();
+		playerInfo.postEffects.removeAt(i);
 	}
 }
 
@@ -297,9 +307,10 @@ void UpdatePlayerRole(Player p)
 						playerInfo.triggered = true;
 					}
 					
-					playerInfo.triggeredPlayers[dest.GetIndex()] = graphics.CreateRect(p, 0, 0, 0.012, 0.022);
+					playerInfo.triggeredPlayers[dest.GetIndex()] = graphics.CreateImage(p, "GFX\\HUD\\sprinticon.png", 0, 0, 0.015, 0.015);
 					playerInfo.triggeredPlayers[dest.GetIndex()].SetColor(255, 0, 0);
 					playerInfo.triggeredPlayers[dest.GetIndex()].SetAttach(dest);
+					playerInfo.triggeredPlayers[dest.GetIndex()].SetAspect(true);
 					playerInfo.hasGUI = true;
 					audio.PlaySoundForPlayer(dest, "SFX\\SCP\\096\\Triggered.ogg");
 				}
@@ -338,11 +349,13 @@ void UpdatePlayerRole(Player p)
 						playerInfo.soundTimer = 10.0;
 					}
 					
-					for(int i = 0; i < MAX_DOORS; i++) {
-						Door d = world.GetDoor(i);
-						if(d != NULL && d.GetEntity().DistanceSquared(p.GetEntity()) <= 2.5 && d.GetLockState() == 0 && !d.IsOpened()) {
-							d.SetOpen(true);
-							break;
+					if(p.GetAnimation() == PLAYER_MODEL_ANIMATION_RUN_ARMED_PISTOL) {
+						for(int i = 0; i < MAX_DOORS; i++) {
+							Door d = world.GetDoor(i);
+							if(d != NULL && d.GetEntity().DistanceSquared(p.GetEntity()) <= 3.5 && d.GetLockState() == 0 && !d.IsOpened()) {
+								d.BreakDoor(p.GetEntity().PositionX(),p.GetEntity().PositionY(),p.GetEntity().PositionZ());
+								break;
+							}
 						}
 					}
 				}
@@ -731,9 +744,10 @@ namespace PlayerTimers
 					}
 				}
 
-				for(int i = 1; i <= MAX_ITEMS; i++) {
-					Items it = world.GetItem(i);
-					if(it != NULL && it.GetEntity().DistanceSquared(p.GetEntity()) <= 4.0 && it.GetPicker() == NULL) {
+				for(auto iter = Items::Iterator(); iter != NULL; iter++)
+				{
+					Items it = iter.Get();
+					if(it.GetEntity().DistanceSquared(p.GetEntity()) <= 4.0 && it.GetPicker() == NULL && it.IsWeapon()) {
 						p.GetHead().Point(it.GetEntity());
 						p.SetRotation(p.GetHead().Pitch(true), p.GetHead().Yaw(true));
 						it.SetPicker(p);

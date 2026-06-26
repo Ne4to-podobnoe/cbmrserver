@@ -35,11 +35,6 @@
 			"scp": true
 		},
 		{
-			"id": "055",
-			"image": "Achv055.png",
-			"scp": true
-		},
-		{
 			"id": "066",
 			"image": "Achv066.png",
 			"scp": true
@@ -253,6 +248,11 @@
             "id": "apollyon",
             "image": "AchvApollyon.png",
             "scp": false
+		},
+		{
+			"id": "055",
+			"image": "Achv055.png",
+			"scp": true
 		}
 	],
 	"translations": {
@@ -380,10 +380,6 @@
 			"name": "Doctor, Doctor!",
 			"description": "Found the cure."
 		},
-		"055": {
-			"name": "Anti-Meme",
-			"description": "Recontained SCP-055."
-		},
 		"066": {
 			"name": "\"Eric?\"",
 			"description": "Interacted with Eric's Toy."
@@ -455,6 +451,10 @@
 		"apollyon": {
 			"name": "The Great Survivor",
 			"description": "Beat the game on \"Apollyon\" difficulty."
+		},
+		"055": {
+			"name": "Anti-Meme",
+			"description": "Recontained SCP-055."
 		}
 	}
 }
