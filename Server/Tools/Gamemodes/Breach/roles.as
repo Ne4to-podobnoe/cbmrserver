@@ -569,7 +569,7 @@ namespace Roles
 		
 		Role@ scp457 = Role(ROLE_SCP_457, "SCP-457", CATEGORY_ANOMALY, PlayerModel(SCP_457_MODEL, {CORPSE_CLASS_D_TEXTURE}), Color(200, 0, 0), "Kill everyone. Wait 45 seconds to start.",
 		{
-			Spawnpoint(vector3(8198.9, -4950.6, 1574.5), 0.0, -128.0, world.GetRoomByIdentifier(r_cont2_457))
+			Spawnpoint(vector3(8062.9, -12661.6, 1277.5), 0.0, -128.0, world.GetRoomByIdentifier(r_cont2_457))
 		}, {}, true, 4.0, 4000, 1.5, true);
 		
 		Role@ scp0492 = Role(ROLE_SCP_0492, "SCP-049-2", CATEGORY_ANOMALY, PlayerModel(ZOMBIE_MODEL, {CLASS_D_ZOMBIE_TEXTURE}), Color(200, 0, 0), "Kill everyone. Listen to SCP-049", {}, {}, false, 1.0, 250, 0.75, false);
