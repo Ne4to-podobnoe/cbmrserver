@@ -307,7 +307,7 @@ void UpdatePlayerRole(Player p)
 						playerInfo.triggered = true;
 					}
 					
-					playerInfo.triggeredPlayers[dest.GetIndex()] = graphics.CreateImage(p, "GFX\\HUD\\sprinticon.png", 0, 0, 0.015, 0.015);
+					playerInfo.triggeredPlayers[dest.GetIndex()] = graphics.CreateImage(p, "GFX\\HUD\\sprint_icon.png", 0, 0, 0.015, 0.015);
 					playerInfo.triggeredPlayers[dest.GetIndex()].SetColor(255, 0, 0);
 					playerInfo.triggeredPlayers[dest.GetIndex()].SetAttach(dest);
 					playerInfo.triggeredPlayers[dest.GetIndex()].SetAspect(true);
