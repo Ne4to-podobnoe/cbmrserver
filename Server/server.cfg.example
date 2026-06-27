@@ -23,6 +23,7 @@ mapsize 21
 masterserver 65535
 description
 allowjump true
+fall_damage true
 gravity 1.0
 script
 
