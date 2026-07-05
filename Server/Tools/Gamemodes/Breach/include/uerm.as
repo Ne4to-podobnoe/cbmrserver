@@ -38,7 +38,6 @@ enum Callbacks
 	ShellDamagePlayer_c		= 36,
 	ShellExplode_c			= 37,
 	ConnectionLoaded_c 		= 38,
-	ConnectionClosed_c 		= 39,
 	CreateItem_c 			= 39,
 	RemoveItem_c 			= 40,
 	CreateNPC_c 			= 41,
@@ -53,7 +52,8 @@ enum Callbacks
 	RemoveGUIElement_c 		= 50,
 	CreateShell_c 			= 51,
 	RemoveShell_c 			= 52,
-	PlayerSpectateAction_c	= 53
+	PlayerSpectateAction_c	= 53,
+	ConnectionClosed_c 		= 54
 }
 
 const string[] EventCallbacks = 
