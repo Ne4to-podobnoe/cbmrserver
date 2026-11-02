@@ -38,7 +38,6 @@ enum Callbacks
 	ShellDamagePlayer_c		= 36,
 	ShellExplode_c			= 37,
 	ConnectionLoaded_c 		= 38,
-	ConnectionClosed_c 		= 39,
 	CreateItem_c 			= 39,
 	RemoveItem_c 			= 40,
 	CreateNPC_c 			= 41,
@@ -53,7 +52,8 @@ enum Callbacks
 	RemoveGUIElement_c 		= 50,
 	CreateShell_c 			= 51,
 	RemoveShell_c 			= 52,
-	PlayerSpectateAction_c	= 53
+	PlayerSpectateAction_c	= 53,
+	ConnectionClosed_c 		= 54
 }
 
 const string[] EventCallbacks = 
@@ -322,7 +322,12 @@ enum DefaultAttaches
 	WEAPON_RPG_ATTACHMODEL = 39,
 	WEAPON_G36_ATTACHMODEL = 40,
 	WEAPON_AK74_ATTACHMODEL = 41,
-
+	
+	// It's better to add new attaches via addons until 256 id
+	FLASHLIGHT_ATTACHMODEL = 498,
+	WEAPON_COIN_ATTACHMODEL = 499,
+	WEAPON_KEY860_ATTACHMODEL = 500,
+	WEAPON_KEY_ATTACHMODEL = 501,
 	WEAPON_EMP_ATTACHMODEL = 502,
 	WEAPON_STEMTEX_ATTACHMODEL = 503,
 	WEAPON_KNIFE_ATTACHMODEL = 504,
@@ -372,7 +377,11 @@ enum DefaultWeapons
 	WEAPON_RPG = 19,
 	WEAPON_G36 = 20,
 	WEAPON_AK74 = 21,
-
+	
+	// It's better to add new weapons via addons until 128 id
+	WEAPON_COIN = 243,
+	WEAPON_KEY860 = 244,
+	WEAPON_KEY = 245,
 	WEAPON_EMP = 246,
 	WEAPON_STEMTEX = 247,
 	WEAPON_KNIFE = 248,
@@ -724,6 +733,7 @@ enum ItemsIdentifiers
 	it_m9 = 131,
 	it_stemtex = 132,
 	it_emp = 133,
+	it_flashlight = 134,
 	it_RESERVETO = 500 // Items ID to 500 are reserved for future versions of CB2
 }
 

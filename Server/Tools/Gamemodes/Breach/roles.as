@@ -409,7 +409,7 @@ namespace Roles
 			Spawnpoint(vector3(frand(9300.0, 10000.0), 50, frand(-5300.0, -4600.0)), 0.0, 0.0, gate_a_b),
 			Spawnpoint(vector3(frand(9300.0, 10000.0), 50, frand(-5300.0, -4600.0)), 0.0, 0.0, gate_a_b),
 			Spawnpoint(vector3(frand(9300.0, 10000.0), 50, frand(-5300.0, -4600.0)), 0.0, 0.0, gate_a_b)
-		}, {"M4A1", "Five-Seven", "Key Card Omni", "Radio Transceiver", "M9", "M69", "Compact First Aid Kit;Ballistic Helmet;Heavy Ballistic Vest;Handcuffs;Ammo crate;Night Vision Goggles;9V Battery"});
+		}, {"M4A1", "Five-Seven", "Key Card Omni", "Radio Transceiver", "M9", "M69", "EMP", "Compact First Aid Kit;Ballistic Helmet;Heavy Ballistic Vest;Handcuffs;Ammo crate;Night Vision Goggles;9V Battery"});
 		
 		Role@ Chaos = Role(ROLE_CHAOS, "Chaos Insurgency Recruit", CATEGORY_INMATE, PlayerModel(CHAOS_MODEL), Color(26, 64, 1), "Find and save Class D. Arrest or neutralize research staff.",
 		{ 
@@ -509,7 +509,7 @@ namespace Roles
 			Spawnpoint(vector3(frand(-4000.0, -4500.0), 78, frand(10400.0, 11200.0)), 0.0, 180.0, gate_a_b),
 			Spawnpoint(vector3(frand(-4000.0, -4500.0), 78, frand(10400.0, 11200.0)), 0.0, 180.0, gate_a_b),
 			Spawnpoint(vector3(frand(-4000.0, -4500.0), 78, frand(10400.0, 11200.0)), 0.0, 180.0, gate_a_b)
-		}, {"SR-556", "Glock", "Hacking Device", "Radio Transceiver", "M9", "M69", "Compact First Aid Kit;Ballistic Helmet;Heavy Ballistic Vest;Handcuffs;Ammo crate"});
+		}, {"SR-556", "Glock", "Hacking Device", "Radio Transceiver", "M9", "M69", "EMP", "Compact First Aid Kit;Ballistic Helmet;Heavy Ballistic Vest;Handcuffs;Ammo crate"});
 		
 		Role@ GOC = Role(ROLE_GOC, "Global Occult Coalition", CATEGORY_GOC, PlayerModel(GOC_MODEL, {GOC_TEXTURE}), Color(89, 148, 229), "Eliminate everyone in the complex.",
 		{ 
@@ -569,7 +569,7 @@ namespace Roles
 		
 		Role@ scp457 = Role(ROLE_SCP_457, "SCP-457", CATEGORY_ANOMALY, PlayerModel(SCP_457_MODEL, {CORPSE_CLASS_D_TEXTURE}), Color(200, 0, 0), "Kill everyone. Wait 45 seconds to start.",
 		{
-			Spawnpoint(vector3(8198.9, -4950.6, 1574.5), 0.0, -128.0, world.GetRoomByIdentifier(r_cont2_457))
+			Spawnpoint(vector3(8062.9, -12661.6, 1277.5), 0.0, -128.0, world.GetRoomByIdentifier(r_cont2_457))
 		}, {}, true, 4.0, 4000, 1.5, true);
 		
 		Role@ scp0492 = Role(ROLE_SCP_0492, "SCP-049-2", CATEGORY_ANOMALY, PlayerModel(ZOMBIE_MODEL, {CLASS_D_ZOMBIE_TEXTURE}), Color(200, 0, 0), "Kill everyone. Listen to SCP-049", {}, {}, false, 1.0, 250, 0.75, false);

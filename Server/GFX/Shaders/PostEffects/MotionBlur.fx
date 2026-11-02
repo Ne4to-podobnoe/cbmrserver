@@ -6,42 +6,18 @@
 //	YOU CAN CONTACT US BY MAILING US ON EUCLIDLABSSTUDIO@GMAIL.COM.
 //--------------------------------------------------------------------------
 
-#include "..\Deferred\Tools.fx"
+#include "..\Forward\Tools.fx"
 
 #define NUM_SAMPLES 7
 
-const float4x4 InvViewProj;
-const float4x4 PrevViewProj;
-const float Strength = 10.0f;
-const float Timestep;
+uniform float3 CameraPosition;
+uniform float4x4 InvViewProj;
+uniform float4x4 PrevViewProj;
+uniform float Strength = 10.0f;
+uniform float Timestep;
 
-#ifdef D3D11
-	texture2D tColorMap : register(t0);
-	sampler ColorMap = sampler_state { Filter = MIN_MAG_MIP_LINEAR; AddressU = Clamp; AddressV = Clamp; };
-	
-	texture2D tDepthMap : register(t1);
-	sampler DepthMap = sampler_state { Filter = MIN_MAG_MIP_LINEAR; AddressU = Clamp; AddressV = Clamp; };
-#else
-	sampler ColorMap : register(s0) = sampler_state
-	{
-		MinFilter = None;
-		MagFilter = None;
-		MipFilter = None;
-		AddressU = Clamp;
-		AddressV = Clamp;
-		AddressW = Clamp;
-	};
-
-	sampler DepthMap : register(s1) = sampler_state
-	{
-		MinFilter = None;
-		MagFilter = None;
-		MipFilter = None;
-		AddressU = Clamp;
-		AddressV = Clamp;
-		AddressW = Clamp;
-	};
-#endif
+DeclareSampler(ColorMap, 0, BLITZ_FILTER_LINEAR, BLITZ_ADDR_CLAMP, BLITZ_ADDR_CLAMP, 0.0, 1);
+DeclareSampler(DepthMap, 1, BLITZ_FILTER_POINT, BLITZ_ADDR_CLAMP, BLITZ_ADDR_CLAMP, 0.0, 1);
 
 struct PS_INPUT
 { 
@@ -59,11 +35,9 @@ PS_INPUT VertexProcess(VS_INPUT input)
 
 float4 PS_MotionBlur(PS_INPUT input) : OUTPUT(0)
 {
-	float4 H = float4(input.TexCoord.x * 2.0f - 1.0f,  -(input.TexCoord.y * 2.0f - 1.0f), Sample2D(DepthMap, input.TexCoord).r, 1);
-	float4 D = mul(H, InvViewProj);
-	float4 worldPos = D / D.w;
+	float3 worldPos = GetWorldPosition(input.TexCoord, Sample2DLod0(DepthMap, input.TexCoord).r, InvViewProj);
 
-	float4 currentPos = H;
+	float4 currentPos = float4(input.TexCoord.x * 2.0f - 1.0f, -(input.TexCoord.y * 2.0f - 1.0f), 0.0f, 1.0f);
 	float4 previousPos = mul(float4(worldPos.xyz, 1.0), PrevViewProj);
 	previousPos /= previousPos.w;
 
@@ -91,11 +65,5 @@ technique Main
 	{
 		Vertex(VertexProcess);
 		Pixel(PS_MotionBlur);
-		
-		#ifndef D3D11
-		ZWriteEnable = false;
-		ClipPlaneEnable = false;
-		Lighting = false;
-		#endif
 	}
 }

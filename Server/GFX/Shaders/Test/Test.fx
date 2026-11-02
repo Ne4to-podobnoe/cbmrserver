@@ -1,27 +1,7 @@
-#include "Tools.fx" // Took from GFX\Shaders\Deferred
+#include "Tools.fx" // Took from GFX\Shaders\Forward
 
-#ifdef D3D11
-	#define point_clamp_sampler sampler_state{Filter=MIN_MAG_MIP_POINT;AddressU=Clamp;AddressV=Clamp;}
-	
-	texture2D tColorMap : register(t0); // RGBA16F (main color)
-	sampler ColorMap = point_clamp_sampler;
-	
-	texture2D tAlbedoMap : register(t1); // RGBA16F (diffuse.rgb, fogFactor)
-	sampler AlbedoMap = point_clamp_sampler;
-	
-	texture2D tNormalMap : register(t2); // RGBA16F (normalized normal * roughness, metallic)
-	sampler NormalMap = point_clamp_sampler;
-	
-	texture2D tDepthMap : register(t3); // R32F (depth z/w)
-	sampler DepthMap = point_clamp_sampler;
-#else
-	#define point_clamp_sampler sampler_state{MinFilter=None;MagFilter=None;MipFilter=None;AddressU=Clamp;AddressV=Clamp;AddressW=Clamp;}
-
-	sampler ColorMap : register(s0) = point_clamp_sampler; // RGBA16F (main color)
-	sampler AlbedoMap : register(s1) = point_clamp_sampler; // RGBA16F (diffuse.rgb, fogFactor)
-	sampler NormalMap : register(s2) = point_clamp_sampler; // RGBA16F (normalized normal * roughness, metallic)
-	sampler DepthMap : register(s3) = point_clamp_sampler; // R32F (depth z/w)
-#endif
+DeclareSampler(ColorMap, 0, BLITZ_FILTER_POINT, BLITZ_ADDR_CLAMP, BLITZ_ADDR_CLAMP, 0.0, 1);
+DeclareSampler(DepthMap, 1, BLITZ_FILTER_POINT, BLITZ_ADDR_CLAMP, BLITZ_ADDR_CLAMP, 0.0, 1);
 
 /* Every available semantics
 float4x4(MAT_VIEW)

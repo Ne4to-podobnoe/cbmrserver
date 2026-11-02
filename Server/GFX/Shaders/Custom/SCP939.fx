@@ -1,13 +1,6 @@
-#include "..\Deferred\Tools.fx"
+#include "..\Forward\Tools.fx"
 
-#ifdef D3D11
-	#define point_clamp_sampler sampler_state{Filter=MIN_MAG_MIP_POINT;AddressU=Clamp;AddressV=Clamp;}
-	texture2D tColorMap : register(t0);
-	sampler ColorMap = point_clamp_sampler;
-#else
-	#define point_clamp_sampler sampler_state{MinFilter=None;MagFilter=None;MipFilter=None;AddressU=Clamp;AddressV=Clamp;AddressW=Clamp;}
-	sampler ColorMap : register(s0) = point_clamp_sampler;
-#endif
+DeclareSampler(ColorMap, 0, BLITZ_FILTER_POINT, BLITZ_ADDR_CLAMP, BLITZ_ADDR_CLAMP, 0.0, 1);
 
 float NPixels = 1.2f;      
 float EdgeStrength = 1.5f;
@@ -73,11 +66,5 @@ technique Main
 	{
 		Vertex(VS_EdgeDetect);
 		Pixel(PS_EdgeDetect);
-		
-		#ifndef D3D11
-			ZWriteEnable = false;
-			ClipPlaneEnable = false;
-			Lighting = false;
-		#endif
 	}
 }
